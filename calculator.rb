@@ -12,7 +12,7 @@ def operation_to_message(op)
     when '2' then 'Subtracting'
     when '3' then 'Multiplying'
     when '4' then 'Dividing' end
-  end
+end
 
 prompt('Simple Arithmetic Calculor')
 
