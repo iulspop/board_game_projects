@@ -16,14 +16,13 @@ loop do
   puts "Enter second number >>"
   num2 = gets.chomp.to_i
   next puts("Cannot divide by 0") if operation == "divide" && num2 == 0
-  break 
+  break
 end
 
-
 result = case operation
-  when "add"      then num1 + num2
-  when "substact" then num1 - num2
-  when "multiply" then num1 * num2
-  when "divide"   then num1 / num2 end
+         when "add"      then num1 + num2
+         when "substact" then num1 - num2
+         when "multiply" then num1 * num2
+         when "divide"   then num1 / num2 end
 
 puts "The result is: #{result}"
