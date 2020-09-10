@@ -23,4 +23,23 @@ END
 
 =end
 
-=
+=begin
+== Problem 2 ==
+Given an array of strings
+Concatenate strings together into single string
+Return big string
+
+START
+
+# Given an array of strings
+
+SET joined_string = ""
+
+LOOP through array
+  SET joined_string += string
+
+RETURN joined_string
+
+END
+
+=end
