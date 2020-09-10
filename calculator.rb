@@ -1,28 +1,34 @@
-puts "==== Simple Arithmetic Calculor ===="
+def prompt(message)
+  puts "=> #{message}"
+end
+
+prompt("Simple Arithmetic Calculor")
 
 operation = ""
 loop do
-  puts "Enter operation to perform (add, substract, multiply or divide) >>"
+  prompt("What operation would you like to perfom?
+   1) add 2) substract 3) multiply 4) divide")
   operation = gets.chomp
-  break if ['add', 'substact', 'multiply', 'divide'].include?(operation)
-  puts "Invalid input. Please try again."
+
+  if ['1', '2', '3', '4'].include?(operation) then break
+  else prompt("Invalid input. Please enter either 1, 2, 3 or 4.") end
 end
 
-puts "Enter first number >>"
+prompt("What's the first number?")
 num1 = gets.chomp.to_i
 
 num2 = 0
 loop do
-  puts "Enter second number >>"
+  prompt("What's the second number?")
   num2 = gets.chomp.to_i
-  next puts("Cannot divide by 0") if operation == "divide" && num2 == 0
+  next prompt("Cannot divide by 0") if operation == "divide" && num2 == 0
   break
 end
 
 result = case operation
-         when "add"      then num1 + num2
-         when "substact" then num1 - num2
-         when "multiply" then num1 * num2
-         when "divide"   then num1 / num2 end
+         when "1" then num1 + num2
+         when "2" then num1 - num2
+         when "3" then num1 * num2
+         when "4" then num1 / num2 end
 
-puts "The result is: #{result}"
+prompt("The result is: #{result}")
