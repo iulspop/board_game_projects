@@ -63,5 +63,5 @@ loop do
   prompt("The result is: #{result}")
 
   prompt("Would you like to run a calculation again? (Y to calculate again)")
-  break unless gets.chomp.upcase.start_with?('Y')
+  break puts "Thank you for using the calculator. Good bye!" unless gets.chomp.upcase.start_with?('Y')
 end
