@@ -43,3 +43,27 @@ RETURN joined_string
 END
 
 =end
+
+=begin
+== Problem 3 ==
+Given an array of integers
+Instantiate new array
+Iterate through array
+Add every second element to new array
+
+START
+
+# Given an array of integers
+
+SET new_array = []
+SET index = 0
+
+WHILE index < array.size
+  append array[index] to new_array
+  index = index + 2
+
+RETURN new_array
+
+END
+
+=end
