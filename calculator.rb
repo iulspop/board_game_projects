@@ -6,17 +6,32 @@ def valid_number?(num)
   num != 0
 end
 
+def operation_to_message(op)
+  case op
+    when '1' then 'Adding'
+    when '2' then 'Subtracting'
+    when '3' then 'Multiplying'
+    when '4' then 'Dividing' end
+  end
+
 prompt('Simple Arithmetic Calculor')
 
-loop do
-  operation = ''
-  loop do
-    prompt('What operation would you like to perfom?
-    1) add 2) substract 3) multiply 4) divide')
-    operation = gets.chomp
+operator_prompt = <<-MSG
+What operation would you like to perfom?
+   1) add 
+   2) substract
+   3) multiply 
+   4) divide
+MSG
 
-    if %w[1 2 3 4].include?(operation) then break
-    else prompt('Invalid input. Please enter either 1, 2, 3 or 4.') end
+loop do
+  operator = ''
+  loop do
+    prompt(operator_prompt)
+    operator = gets.chomp
+
+    if %w[1 2 3 4].include?(operator) then break
+    else prompt('Must choose 1, 2, 3 or 4') end
   end
 
   num1 = 0
@@ -37,7 +52,9 @@ loop do
     else prompt('Please enter a natural number except for 0') end
   end
 
-  result = case operation
+  prompt("#{operation_to_message(operator)} the two numbers...")
+
+  result = case operator
            when '1' then num1 + num2
            when '2' then num1 - num2
            when '3' then num1 * num2
