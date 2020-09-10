@@ -8,10 +8,10 @@ end
 
 def operation_to_message(op)
   case op
-    when '1' then 'Adding'
-    when '2' then 'Subtracting'
-    when '3' then 'Multiplying'
-    when '4' then 'Dividing' end
+  when '1' then 'Adding'
+  when '2' then 'Subtracting'
+  when '3' then 'Multiplying'
+  when '4' then 'Dividing' end
 end
 
 prompt('Simple Arithmetic Calculor')
@@ -63,5 +63,7 @@ loop do
   prompt("The result is: #{result}")
 
   prompt("Would you like to run a calculation again? (Y to calculate again)")
-  break puts "Thank you for using the calculator. Good bye!" unless gets.chomp.upcase.start_with?('Y')
+  break unless gets.chomp.upcase.start_with?('Y')
 end
+
+puts "Thank you for using the calculator. Good bye!"
