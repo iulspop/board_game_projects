@@ -6,8 +6,8 @@ def valid_number?(num)
   num.match?(/\A-?[0-9]+(.[0-9]+)?\z/)
 end
 
-def operation_to_message(op)
-  message = case op
+def operation_to_message(operator)
+  message = case operator
   when '1' then 'Adding'
   when '2' then 'Subtracting'
   when '3' then 'Multiplying'
