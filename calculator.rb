@@ -3,7 +3,7 @@ def prompt(message)
 end
 
 def valid_number?(num)
-  num != 0
+  !num.match?(/[^0-9]/)
 end
 
 def operation_to_message(op)
@@ -37,19 +37,19 @@ loop do
   num1 = 0
   loop do
     prompt('What\'s the first number?')
-    num1 = gets.chomp.to_i
+    num1 = gets.chomp
 
-    if valid_number?(num1) then break
-    else prompt('Please enter a natural number except for 0') end
+    if valid_number?(num1) then break num1 = num1.to_f
+    else prompt('Oops. Please enter only number') end
   end
 
   num2 = 0
   loop do
     prompt('What\'s the second number?')
-    num2 = gets.chomp.to_i
+    num2 = gets.chomp
 
-    if valid_number?(num2) then break
-    else prompt('Please enter a natural number except for 0') end
+    if valid_number?(num2) then break num2 = num2.to_f
+    else prompt('Oops. Please enter only a number') end
   end
 
   prompt("#{operation_to_message(operator)} the two numbers...")
