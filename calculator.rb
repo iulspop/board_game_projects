@@ -1,9 +1,9 @@
 def prompt(message)
-  puts "=> #{message}"
+  puts "==> #{message}"
 end
 
 def valid_number?(num)
-  !num.match?(/[^0-9]/)
+  num.match?(/\A[0-9]+(.[0-9]+)?\z/)
 end
 
 def operation_to_message(op)
@@ -14,7 +14,7 @@ def operation_to_message(op)
   when '4' then 'Dividing' end
 end
 
-prompt('Simple Arithmetic Calculor')
+prompt('Simple Arithmetic Calculator')
 
 operator_prompt = <<-MSG
 What operation would you like to perfom?
@@ -40,7 +40,7 @@ loop do
     num1 = gets.chomp
 
     if valid_number?(num1) then break num1 = num1.to_f
-    else prompt('Oops. Please enter only number') end
+    else prompt('Oops. Please enter a valid number') end
   end
 
   num2 = 0
@@ -49,7 +49,7 @@ loop do
     num2 = gets.chomp
 
     if valid_number?(num2) then break num2 = num2.to_f
-    else prompt('Oops. Please enter only a number') end
+    else prompt('Oops. Please enter a valid number') end
   end
 
   prompt("#{operation_to_message(operator)} the two numbers...")
