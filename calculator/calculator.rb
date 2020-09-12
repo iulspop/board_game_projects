@@ -14,11 +14,11 @@ def valid_number?(num)
 end
 
 def operation_to_message(operator)
-  message = case operator
-            when '1' then 'Adding'
-            when '2' then 'Subtracting'
-            when '3' then 'Multiplying'
-            when '4' then 'Dividing' end
+  case operator
+  when '1' then 'Adding'
+  when '2' then 'Subtracting'
+  when '3' then 'Multiplying'
+  when '4' then 'Dividing' end
 end
 
 lang = ''
