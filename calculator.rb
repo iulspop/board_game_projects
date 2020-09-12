@@ -3,7 +3,7 @@ def prompt(message)
 end
 
 def valid_number?(num)
-  num.match?(/\A[0-9]+(.[0-9]+)?\z/)
+  num.match?(/\A-?[0-9]+(.[0-9]+)?\z/)
 end
 
 def operation_to_message(op)
