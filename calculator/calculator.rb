@@ -13,6 +13,18 @@ def valid_number?(num)
   num.match?(/\A-?[0-9]+(.[0-9]+)?\z/)
 end
 
+def get_float
+  num = 0
+  loop do
+    prompt('What\'s the first number?')
+    num = gets.chomp
+
+    if valid_number?(num) then break
+    else prompt('Oops. Please enter a valid number') end
+  end
+  num.to_f
+end
+
 def operation_to_message(operator)
   case operator
   when '1' then 'Adding'
@@ -23,7 +35,7 @@ end
 
 lang = ''
 loop do
-  prompt('Language? English (en) or French (fr) ')
+  prompt('Language? English (en) or French (fr)')
   lang = gets.chomp.downcase
   break if ['english', 'en', 'french', 'fr'].include?(lang)
   prompt('Oops. Please enter a valid language')
@@ -41,23 +53,9 @@ loop do
     else prompt('Must choose 1, 2, 3 or 4') end
   end
 
-  num1 = 0
-  loop do
-    prompt('What\'s the first number?')
-    num1 = gets.chomp
+  num1 = get_float
 
-    if valid_number?(num1) then break num1 = num1.to_f
-    else prompt('Oops. Please enter a valid number') end
-  end
-
-  num2 = 0
-  loop do
-    prompt('What\'s the second number?')
-    num2 = gets.chomp
-
-    if valid_number?(num2) then break num2 = num2.to_f
-    else prompt('Oops. Please enter a valid number') end
-  end
+  num2 = get_float
 
   prompt("#{operation_to_message(operator)} the two numbers...")
 
@@ -70,7 +68,8 @@ loop do
   prompt("The result is: #{result}")
 
   prompt("Would you like to run a calculation again? (Y to calculate again)")
-  break unless gets.chomp.upcase.start_with?('Y')
+  answer = gets.chomp.upcase
+  break unless answer.start_with?('Y')
 end
 
-puts "Thank you for using the calculator. Good bye!"
+prompt("Thank you for using the calculator. Good bye!")
