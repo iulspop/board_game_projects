@@ -1,5 +1,12 @@
-def prompt(message)
-  puts "==> #{message}"
+require 'yaml'
+
+def translate(translations = nil, message_key = nil, language = nil, default_message)
+  if translations
+    translated_message = translations[message_key][language]
+    puts "==> #{translated_message}"
+  else
+    puts "==> #{default_message}"
+  end
 end
 
 def valid_number?(num)
@@ -14,7 +21,24 @@ def operation_to_message(operator)
   when '4' then 'Dividing' end
 end
 
-prompt('Simple Arithmetic Calculator')
+begin
+  translations = YAML.load_file('calculator_messages.yml')
+rescue Errno::ENOENT
+  puts "Did not find language file. Using default english messages."
+  skip_language_prompt = true
+end
+
+unless skip_language_prompt
+  language = ''
+  loop do
+    translate('Language? Enter EN or FR')
+    language = gets.chomp.upcase
+    break if ['EN', 'FR'].include?(language)
+    translate('Oops. Please enter a valid language')
+  end
+end
+
+translate(translations, 'greeting', language, 'Simple Arithmetic Calculator')
 
 operator_prompt = <<-MSG
 What operation would you like to perfom?
@@ -27,32 +51,32 @@ MSG
 loop do
   operator = ''
   loop do
-    prompt(operator_prompt)
+    translate(translations, 'operator_prompt', language, operator_prompt)
     operator = gets.chomp
 
     if %w[1 2 3 4].include?(operator) then break
-    else prompt('Must choose 1, 2, 3 or 4') end
+    else  translate('Must choose 1, 2, 3 or 4') end
   end
 
   num1 = 0
   loop do
-    prompt('What\'s the first number?')
+    translate('What\'s the first number?')
     num1 = gets.chomp
 
     if valid_number?(num1) then break num1 = num1.to_f
-    else prompt('Oops. Please enter a valid number') end
+    else  translate('Oops. Please enter a valid number') end
   end
 
   num2 = 0
   loop do
-    prompt('What\'s the second number?')
+    translate('What\'s the second number?')
     num2 = gets.chomp
 
     if valid_number?(num2) then break num2 = num2.to_f
-    else prompt('Oops. Please enter a valid number') end
+    else  translate('Oops. Please enter a valid number') end
   end
 
-  prompt("#{operation_to_message(operator)} the two numbers...")
+  translate("#{operation_to_message(operator)} the two numbers...")
 
   result = case operator
            when '1' then num1 + num2
@@ -60,9 +84,9 @@ loop do
            when '3' then num1 * num2
            when '4' then num1 / num2 end
 
-  prompt("The result is: #{result}")
+  translate("The result is: #{result}")
 
-  prompt("Would you like to run a calculation again? (Y to calculate again)")
+  translate("Would you like to run a calculation again? (Y to calculate again)")
   break unless gets.chomp.upcase.start_with?('Y')
 end
 
