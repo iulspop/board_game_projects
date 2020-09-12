@@ -7,7 +7,7 @@ def valid_number?(num)
 end
 
 def operation_to_message(op)
-  case op
+  message = case op
   when '1' then 'Adding'
   when '2' then 'Subtracting'
   when '3' then 'Multiplying'
