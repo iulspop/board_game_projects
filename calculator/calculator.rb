@@ -13,10 +13,10 @@ def valid_number?(num)
   num.match?(/\A-?[0-9]+(.[0-9]+)?\z/)
 end
 
-def get_float
+def get_number(count)
   num = 0
   loop do
-    prompt('What\'s the first number?')
+    prompt("What\'s the #{count} number?")
     num = gets.chomp
 
     if valid_number?(num) then break
@@ -53,9 +53,9 @@ loop do
     else prompt('Must choose 1, 2, 3 or 4') end
   end
 
-  num1 = get_float
+  num1 = get_number('first')
 
-  num2 = get_float
+  num2 = get_number('second')
 
   prompt("#{operation_to_message(operator)} the two numbers...")
 
