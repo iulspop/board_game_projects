@@ -17,6 +17,16 @@ def valid_number?(num)
   num.match?(/\A-?[0-9]+(.[0-9]+)?\z/)
 end
 
+def get_lang
+  lang = ''
+  loop do
+    prompt('Language? English (en) or French (fr)')
+    lang = gets.chomp.downcase
+    break if ['english', 'en', 'french', 'fr'].include?(lang)
+    prompt('Oops. Please enter a valid language')
+  end
+end
+
 def get_operator
   operator = ''
   loop do
@@ -50,19 +60,13 @@ def operation_to_message(operator)
 end
 
 clear_screen()
-lang = ''
-loop do
-  prompt('Language? English (en) or French (fr)')
-  lang = gets.chomp.downcase
-  break if ['english', 'en', 'french', 'fr'].include?(lang)
-  prompt('Oops. Please enter a valid language')
-end
+lang = get_lang
 
 clear_screen()
 prompt(messages('greeting', lang))
 
 loop do
-  get_operator()
+  operator = get_operator()
 
   clear_screen()
   num1 = get_number('first')
