@@ -59,6 +59,14 @@ def operation_to_message(operator)
   when '4' then 'Dividing' end
 end
 
+def calculate_result(num1, num2, operator)
+  case operator
+  when '1' then num1 + num2
+  when '2' then num1 - num2
+  when '3' then num1 * num2
+  when '4' then num1 / num2 end
+end
+
 clear_screen()
 lang = get_lang
 
@@ -73,20 +81,14 @@ loop do
   num2 = get_number('second')
 
   clear_screen()
-  prompt("#{operation_to_message(operator)} the two numbers...")
+  prompt("#{operation_to_message(operator)} the numbers...")
 
-  result = case operator
-           when '1' then num1 + num2
-           when '2' then num1 - num2
-           when '3' then num1 * num2
-           when '4' then num1 / num2 end
-
+  result = calculate_result(num1, num2, operator)
   prompt("The result is: #{result}")
 
   prompt("Would you like to run a calculation again? (Y to calculate again)")
   answer = gets.chomp.upcase
   break unless answer.start_with?('Y')
-
   clear_screen()
 end
 
