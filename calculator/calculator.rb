@@ -6,7 +6,7 @@ def prompt(message)
 end
 
 def clear_screen
-  system("clear") || system("cls")
+  system('clear') || system('cls')
 end
 
 def messages(message, lang = 'en')
@@ -86,7 +86,7 @@ loop do
   result = calculate_result(num1, num2, operator)
   prompt("The result is: #{result}")
 
-  prompt("Would you like to run a calculation again? (Y to calculate again)")
+  prompt('Would you like to run a calculation again? (Y to calculate again)')
   answer = gets.chomp.upcase
   break unless answer.start_with?('Y')
   clear_screen()
