@@ -8,7 +8,7 @@ end
 def clear_screen
   system("clear") || system("cls")
 end
-  
+
 def messages(message, lang = 'en')
   MESSAGES[lang][message]
 end
@@ -82,7 +82,7 @@ loop do
   prompt("Would you like to run a calculation again? (Y to calculate again)")
   answer = gets.chomp.upcase
   break unless answer.start_with?('Y')
-  
+
   clear_screen()
 end
 
