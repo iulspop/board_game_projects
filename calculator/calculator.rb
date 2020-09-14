@@ -5,12 +5,28 @@ def prompt(message)
   puts "==> #{message}"
 end
 
+def clear_screen
+  system("clear") || system("cls")
+end
+  
 def messages(message, lang = 'en')
   MESSAGES[lang][message]
 end
 
 def valid_number?(num)
   num.match?(/\A-?[0-9]+(.[0-9]+)?\z/)
+end
+
+def get_operator
+  operator = ''
+  loop do
+    prompt(messages('operator_prompt', lang))
+    operator = gets.chomp
+
+    if %w[1 2 3 4].include?(operator) then break
+    else prompt('Must choose 1, 2, 3 or 4') end
+  end
+  operator
 end
 
 def get_number(count)
@@ -33,6 +49,7 @@ def operation_to_message(operator)
   when '4' then 'Dividing' end
 end
 
+clear_screen()
 lang = ''
 loop do
   prompt('Language? English (en) or French (fr)')
@@ -41,22 +58,17 @@ loop do
   prompt('Oops. Please enter a valid language')
 end
 
+clear_screen()
 prompt(messages('greeting', lang))
 
 loop do
-  operator = ''
-  loop do
-    prompt(messages('operator_prompt', lang))
-    operator = gets.chomp
+  get_operator()
 
-    if %w[1 2 3 4].include?(operator) then break
-    else prompt('Must choose 1, 2, 3 or 4') end
-  end
-
+  clear_screen()
   num1 = get_number('first')
-
   num2 = get_number('second')
 
+  clear_screen()
   prompt("#{operation_to_message(operator)} the two numbers...")
 
   result = case operator
@@ -70,6 +82,9 @@ loop do
   prompt("Would you like to run a calculation again? (Y to calculate again)")
   answer = gets.chomp.upcase
   break unless answer.start_with?('Y')
+  
+  clear_screen()
 end
 
+clear_screen()
 prompt("Thank you for using the calculator. Good bye!")
