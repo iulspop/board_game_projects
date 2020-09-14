@@ -29,10 +29,10 @@ def get_operator
   operator
 end
 
-def get_number(count)
+def get_number(ordinal_number_word)
   num = 0
   loop do
-    prompt("What\'s the #{count} number?")
+    prompt("What\'s the #{ordinal_number_word} number?")
     num = gets.chomp
 
     if valid_number?(num) then break
