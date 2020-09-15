@@ -114,11 +114,16 @@ def calculate_monthly_payment(loan_amount, months, monthly_rate)
   loan_amount * (monthly_rate / (1 - (1 + monthly_rate)**(-months)))
 end
 
-def continue?
+def another_calculation?
   sleep 0.15
-  prompt('Would you like to calculate loan payments again? Y/N')
-  answer = gets.chomp
-  ['Y', 'y'].include?(answer)
+  loop do
+    prompt('Would you like to calculate loan payments again? Y/N')
+    answer = gets.chomp
+    return true if ['yes', 'y'].include?(answer.downcase)
+    return false if ['no', 'n'].include?(answer.downcase)
+    clear_screen()
+    puts 'Oops. Please enter Yes or No.'
+  end
 end
 
 loop do
@@ -133,5 +138,5 @@ loop do
   clear_screen()
   prompt "The monthly payment on this loan would be $#{monthly_payment} for" \
   " #{months} months.", ''
-  break unless continue?
+  break unless another_calculation?
 end
