@@ -83,9 +83,28 @@ def get_loan_duration_in_months
   years.to_i * 12 + months.to_i
 end
 
+def apr_to_monthly_rate(apr)
+  apr / 12 / 100
+end
+
+def get_apr
+  clear_screen()
+  apr = 0
+  loop do
+    prompt('What is the loan\'s APR as a percentage?')
+    apr = gets.chomp
+
+    break if valid_positive_number?(apr)
+    clear_screen()
+    puts 'Oops. The percentage should be a positive number.'
+  end
+  apr.to_f
+end
+
 welcome()
 loan_amount = get_loan_amount
 months = get_loan_duration_in_months
+monthly_interest = apr_to_monthly_rate_as_decimal(get_apr)
 
-  # monthly_payment = 
+# monthly_payment = 
 # loan_amount * (monthly_interest / (1 - (1 + monthly_interest)**(-months)))
