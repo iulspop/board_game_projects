@@ -50,37 +50,45 @@ def get_loan_amount
   loan_amount.to_f
 end
 
+def get_years
+  years = 0
+  loop do
+    prompt 'How many years long is the loan? (Zero if less than a year)'
+    years = gets.chomp
+
+    break if valid_integer?(years)
+    clear_screen()
+    puts 'Oops. The number of years should be a whole number.'
+  end
+  years
+end
+
+def get_months
+  clear_screen()
+  months = 0
+  loop do
+    prompt 'How many additional months long is the loan?'
+    months = gets.chomp
+
+    break if valid_integer?(months)
+    clear_screen()
+    puts 'Oops. The number of months should be a whole number.'
+  end
+  months
+end
+
 def get_loan_duration_in_months
   clear_screen()
-  years = 0
-  months = 0
-
   loop do
-    loop do
-      prompt 'How many years long is the loan? (Zero if less than a year)'
-      years = gets.chomp
-
-      break if valid_integer?(years)
+    p years  = get_years
+    p months = get_months
+    if years.to_i == 0 && months.to_i == 0
       clear_screen()
-      puts 'Oops. The number of years should be a whole number.'
+      puts 'Oops. The loan duration cannot be 0 years long and 0 months long.'
+    else
+      return years.to_i * 12 + months.to_i
     end
-
-    clear_screen()
-    loop do
-      prompt 'How many additional months long is the loan?'
-      months = gets.chomp
-
-      break if valid_integer?(months)
-      clear_screen()
-      puts 'Oops. The number of months should be a whole number.'
-    end
-
-    break if years.to_i != 0 || months.to_i != 0
-    clear_screen()
-    puts 'Oops. The loan duration cannot be 0 years long and 0 months long.'
   end
-
-  years.to_i * 12 + months.to_i
 end
 
 def apr_to_monthly_rate_as_decimal(apr)
