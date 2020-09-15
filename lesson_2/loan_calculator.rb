@@ -24,10 +24,10 @@ def welcome
   prompt 'Calculate the monthly payments of a loan with this tool.'
   prompt(
   <<-MSG
-  You will need: 
-      1) Total loan amount
-      2) Loan duration
-      3) Annual Percentage Rate (APR)
+  You will need the loan's: 
+      1) Total amount
+      2) Duration
+      3) APR (Annual Percentage Rate)
   MSG
   )
 
