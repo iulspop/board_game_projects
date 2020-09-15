@@ -83,7 +83,7 @@ def get_loan_duration_in_months
   years.to_i * 12 + months.to_i
 end
 
-def apr_to_monthly_rate(apr)
+def apr_to_monthly_rate_as_decimal(apr)
   apr / 12 / 100
 end
 
@@ -101,10 +101,14 @@ def get_apr
   apr.to_f
 end
 
+def calculate_monthly_payment(loan_amount, months, monthly_rate)
+  loan_amount * (monthly_rate / (1 - (1 + monthly_rate)**(-months)))
+end
+
 welcome()
 loan_amount = get_loan_amount
 months = get_loan_duration_in_months
 monthly_rate = apr_to_monthly_rate_as_decimal(get_apr)
 
-# monthly_payment = 
-# loan_amount * (monthly_interest / (1 - (1 + monthly_interest)**(-months)))
+monthly_payment = 
+calculate_monthly_payment(loan_amount, months, monthly_rate).round(2)
