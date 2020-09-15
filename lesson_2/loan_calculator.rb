@@ -32,7 +32,7 @@ def welcome
   )
 
   print "\n"
-  prompt('Press any key to continue...')
+  prompt 'Press any key to continue...'
   STDIN.getch
 end
 
@@ -40,7 +40,7 @@ def get_loan_amount
   clear_screen()
   loan_amount = 0
   loop do
-    prompt('Please enter the total loan amount:')
+    prompt 'Please enter the total loan amount:'
     loan_amount = gets.chomp
 
     break if valid_positive_number?(loan_amount) && loan_amount.to_f > 0
@@ -57,7 +57,7 @@ def get_loan_duration_in_months
 
   loop do
     loop do
-      prompt('How many years long is the loan? (Zero if less than a year)')
+      prompt 'How many years long is the loan? (Zero if less than a year)'
       years = gets.chomp
 
       break if valid_integer?(years)
@@ -67,7 +67,7 @@ def get_loan_duration_in_months
 
     clear_screen()
     loop do
-      prompt('How many additional months long is the loan?')
+      prompt 'How many additional months long is the loan?'
       months = gets.chomp
 
       break if valid_integer?(months)
@@ -91,7 +91,7 @@ def get_apr
   clear_screen()
   apr = 0
   loop do
-    prompt('What is the loan\'s APR as a percentage?')
+    prompt 'What is the loan\'s APR as a percentage?'
     apr = gets.chomp
 
     break if valid_positive_number?(apr)
