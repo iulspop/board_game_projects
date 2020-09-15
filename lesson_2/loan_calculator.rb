@@ -20,10 +20,10 @@ def welcome
   clear_screen()
   puts 'Welcome to Loan Calculator Utility!', ''
   sleep 0.15
-  
+
   prompt 'Calculate the monthly payments of a loan with this tool.'
   prompt(
-  <<-MSG
+    <<-MSG
 You will need the loan's: 
      1) Total amount
      2) Duration
@@ -49,7 +49,7 @@ def get_loan_amount
   end
   loan_amount.to_f
 end
-  
+
 def get_loan_duration_in_months
   clear_screen()
   years = 0
@@ -79,7 +79,7 @@ def get_loan_duration_in_months
     clear_screen()
     puts 'Oops. The loan duration cannot be 0 years long and 0 months long.'
   end
-  
+
   years.to_i * 12 + months.to_i
 end
 
@@ -118,11 +118,11 @@ loop do
   months = get_loan_duration_in_months
   monthly_rate = apr_to_monthly_rate_as_decimal(get_apr)
 
-  monthly_payment = 
-  calculate_monthly_payment(loan_amount, months, monthly_rate).round(2)
+  monthly_payment =
+    calculate_monthly_payment(loan_amount, months, monthly_rate).round(2)
 
   clear_screen()
-  prompt "The monthly payment on this loan would be $#{monthly_payment} for" +
+  prompt "The monthly payment on this loan would be $#{monthly_payment} for" \
   " #{months} months.", ''
   break unless continue?
 end
