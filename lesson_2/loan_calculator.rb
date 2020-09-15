@@ -80,8 +80,8 @@ end
 def get_loan_duration_in_months
   clear_screen()
   loop do
-    p years  = get_years
-    p months = get_months
+    years  = get_years
+    months = get_months
     if years.to_i == 0 && months.to_i == 0
       clear_screen()
       puts 'Oops. The loan duration cannot be 0 years long and 0 months long.'
@@ -133,17 +133,16 @@ def display_loan_results(monthly_payment, months, total_interest, total_payment)
   clear_screen()
   prompt "The monthly payment on this loan would be $#{monthly_payment} for" \
   " #{months} months."
-  prompt "You will pay at total interest of $#{total_interest} and" \
-  " a total payment of $#{total_payment}", ''
+  prompt "You will pay a total interest of $#{total_interest} and" \
+  " a total payment of $#{total_payment}.", ''
 end
 
 def again?
-  sleep 0.15
   loop do
     prompt('Would you like to calculate loan payments again? Y/N')
-    answer = gets.chomp
-    return true if ['yes', 'y'].include?(answer.downcase)
-    return false if ['no', 'n'].include?(answer.downcase)
+    answer = gets.chomp.downcase
+    return true if ['yes', 'y'].include?(answer)
+    return false if ['no', 'n'].include?(answer)
     clear_screen()
     puts 'Oops. Please enter Yes or No.'
   end
