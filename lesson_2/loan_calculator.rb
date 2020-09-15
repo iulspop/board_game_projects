@@ -1,22 +1,25 @@
 require 'io/console'
 
-def prompt(message)
-  puts "==> #{message}"
+def prompt(message, *extra)
+  puts "==> #{message}", *extra
 end
 
 def clear_screen
   system('clear') || system('clr')
 end
 
-def valid_positive_number?(num)
-  num.match?(/\A[0-9]+(.[0-9]+)?\z/)
+def valid_positive_number?(string)
+  string.match?(/\A[0-9]+(.[0-9]+)?\z/)
+end
+
+def valid_integer?(string)
+  string.match?(/\A[0-9]+\z/)
 end
 
 def welcome
-  puts 'Loan Calculator Utility'
+  puts 'Welcome to Loan Calculator Utility!', ''
   sleep 0.15
   
-  prompt 'Welcome!'
   prompt 'Calculate the monthly payments of a loan with this tool.'
   prompt(
   <<-MSG
@@ -26,28 +29,65 @@ def welcome
       3) Annual Percentage Rate (APR)
   MSG
   )
-  
+
+  print "\n"
   prompt('Press any key to continue...')
   STDIN.getch
 end
 
 def get_loan_amount
-  loan_amount = ''
+  loan_amount = 0
   loop do
     prompt('Please enter the total loan amount:')
     loan_amount = gets.chomp
 
     break if valid_positive_number?(loan_amount) && loan_amount.to_f > 0
-    prompt('Oops. The amount should be greater than 0.')
+    clear_screen()
+    puts 'Oops. The amount should be greater than 0.'
   end
   loan_amount.to_f
 end
   
+def get_loan_duration_in_months
+  years = 0
+  months = 0
+
+  loop do
+    loop do
+      prompt('How many years long is the loan? (Zero if less than a year)')
+      years = gets.chomp
+
+      break if valid_integer?(years)
+      clear_screen()
+      puts 'Oops. The number of years should be a valid number.'
+    end
+
+    clear_screen()
+    loop do
+      prompt('How many additional months long is the loan?')
+      months = gets.chomp
+
+      break if valid_integer?(months)
+      clear_screen()
+      puts 'Oops. The number of months should be a valid number.'
+    end
+
+    break if years.to_i != 0 || months.to_i != 0
+    clear_screen()
+    puts 'Oops. The loan duration cannot be 0 years long and 0 months long.'
+  end
+  
+  years.to_i * 12 + months.to_i
+end
+
 clear_screen()
 welcome()
 
 clear_screen()
 loan_amount = get_loan_amount
+
+clear_screen()
+months = get_loan_duration_in_months
 
   # monthly_payment = 
 # loan_amount * (monthly_interest / (1 - (1 + monthly_interest)**(-months)))
