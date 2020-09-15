@@ -139,8 +139,8 @@ end
 
 loop do
   welcome()
-  loan_amount = get_loan_amount
-  months = get_loan_duration_in_months
+  loan_amount = get_loan_amount()
+  months = get_loan_duration_in_months()
   monthly_rate = apr_to_monthly_rate_as_decimal(get_apr)
 
   monthly_payment =
