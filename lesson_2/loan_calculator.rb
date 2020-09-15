@@ -112,3 +112,5 @@ monthly_rate = apr_to_monthly_rate_as_decimal(get_apr)
 
 monthly_payment = 
 calculate_monthly_payment(loan_amount, months, monthly_rate).round(2)
+
+prompt "The monthly payment on this loan would be $#{monthly_payment}"
