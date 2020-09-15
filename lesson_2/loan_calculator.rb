@@ -166,3 +166,6 @@ loop do
   display_loan_results(monthly_payment, months, total_interest, total_payment)
   break unless again?
 end
+
+clear_screen()
+prompt "Thank you for using Loan Calculator Utility. Goodbye!"
