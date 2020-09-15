@@ -59,7 +59,7 @@ def get_loan_duration_in_months
 
       break if valid_integer?(years)
       clear_screen()
-      puts 'Oops. The number of years should be a valid number.'
+      puts 'Oops. The number of years should be a whole number.'
     end
 
     clear_screen()
@@ -69,7 +69,7 @@ def get_loan_duration_in_months
 
       break if valid_integer?(months)
       clear_screen()
-      puts 'Oops. The number of months should be a valid number.'
+      puts 'Oops. The number of months should be a whole number.'
     end
 
     break if years.to_i != 0 || months.to_i != 0
