@@ -129,6 +129,14 @@ def calculate_total_payment(loan_amount, total_interest)
   loan_amount + total_interest
 end
 
+def display_loan_results(monthly_payment, months, total_interest, total_payment)
+  clear_screen()
+  prompt "The monthly payment on this loan would be $#{monthly_payment} for" \
+  " #{months} months."
+  prompt "You will pay at total interest of $#{total_interest} and" \
+  " a total payment of $#{total_payment}", ''
+end
+
 def again?
   sleep 0.15
   loop do
@@ -155,10 +163,7 @@ loop do
     .round(2)
 
   total_payment = calculate_total_payment(loan_amount, total_interest).round(2)
-  
-  clear_screen()
-  prompt "The monthly payment on this loan would be $#{monthly_payment} for" \
-  " #{months} months.", ''
-  prompt "#{total_interest}"
+
+  display_loan_results(monthly_payment, months, total_interest, total_payment)
   break unless again?
 end
