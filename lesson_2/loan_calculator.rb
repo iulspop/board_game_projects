@@ -104,7 +104,7 @@ end
 welcome()
 loan_amount = get_loan_amount
 months = get_loan_duration_in_months
-monthly_interest = apr_to_monthly_rate_as_decimal(get_apr)
+monthly_rate = apr_to_monthly_rate_as_decimal(get_apr)
 
 # monthly_payment = 
 # loan_amount * (monthly_interest / (1 - (1 + monthly_interest)**(-months)))
