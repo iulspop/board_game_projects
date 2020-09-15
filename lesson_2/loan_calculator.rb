@@ -17,6 +17,7 @@ def valid_integer?(string)
 end
 
 def welcome
+  clear_screen()
   puts 'Welcome to Loan Calculator Utility!', ''
   sleep 0.15
   
@@ -36,6 +37,7 @@ def welcome
 end
 
 def get_loan_amount
+  clear_screen()
   loan_amount = 0
   loop do
     prompt('Please enter the total loan amount:')
@@ -49,6 +51,7 @@ def get_loan_amount
 end
   
 def get_loan_duration_in_months
+  clear_screen()
   years = 0
   months = 0
 
@@ -80,13 +83,8 @@ def get_loan_duration_in_months
   years.to_i * 12 + months.to_i
 end
 
-clear_screen()
 welcome()
-
-clear_screen()
 loan_amount = get_loan_amount
-
-clear_screen()
 months = get_loan_duration_in_months
 
   # monthly_payment = 
