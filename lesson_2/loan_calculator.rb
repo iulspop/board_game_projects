@@ -99,7 +99,8 @@ def get_apr
   clear_screen()
   apr = 0
   loop do
-    prompt 'What is the loan\'s APR as a percentage?'
+    prompt 'What is the loan\'s annual percentage rate (APR)?'
+    prompt 'Example: 20 for 20% or 2.99 for 2.99%'
     apr = gets.chomp
 
     break if valid_positive_number?(apr)
