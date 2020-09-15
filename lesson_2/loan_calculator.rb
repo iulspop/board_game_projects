@@ -24,10 +24,10 @@ def welcome
   prompt 'Calculate the monthly payments of a loan with this tool.'
   prompt(
   <<-MSG
-  You will need the loan's: 
-      1) Total amount
-      2) Duration
-      3) APR (Annual Percentage Rate)
+You will need the loan's: 
+     1) Total amount
+     2) Duration
+     3) APR (Annual Percentage Rate)
   MSG
   )
 
@@ -105,12 +105,24 @@ def calculate_monthly_payment(loan_amount, months, monthly_rate)
   loan_amount * (monthly_rate / (1 - (1 + monthly_rate)**(-months)))
 end
 
-welcome()
-loan_amount = get_loan_amount
-months = get_loan_duration_in_months
-monthly_rate = apr_to_monthly_rate_as_decimal(get_apr)
+def continue?
+  sleep 0.15
+  prompt('Would you like to calculate loan payments again? Y/N')
+  answer = gets.chomp
+  ['Y', 'y'].include?(answer)
+end
 
-monthly_payment = 
-calculate_monthly_payment(loan_amount, months, monthly_rate).round(2)
+loop do
+  welcome()
+  loan_amount = get_loan_amount
+  months = get_loan_duration_in_months
+  monthly_rate = apr_to_monthly_rate_as_decimal(get_apr)
 
-prompt "The monthly payment on this loan would be $#{monthly_payment}"
+  monthly_payment = 
+  calculate_monthly_payment(loan_amount, months, monthly_rate).round(2)
+
+  clear_screen()
+  prompt "The monthly payment on this loan would be $#{monthly_payment} for" +
+  " #{months} months.", ''
+  break unless continue?
+end
