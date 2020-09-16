@@ -154,9 +154,13 @@ loop do
   months          = get_loan_duration_in_months()
   monthly_rate    = apr_to_monthly_rate_as_decimal(get_apr)
 
-  monthly_payment = calculate_monthly_payment(loan_amount, months, monthly_rate).round(2)
-  total_interest  = calculate_total_interest(loan_amount, months, monthly_rate, monthly_payment).round(2)
-  total_payment   = calculate_total_payment(loan_amount, total_interest).round(2)
+  monthly_payment = calculate_monthly_payment(loan_amount,
+                                              months, monthly_rate).round(2)
+
+  total_interest = calculate_total_interest(loan_amount, months, monthly_rate,
+                                            monthly_payment).round(2)
+
+  total_payment = calculate_total_payment(loan_amount, total_interest).round(2)
 
   display_loan_results(monthly_payment, months, total_interest, total_payment)
   break unless again?
