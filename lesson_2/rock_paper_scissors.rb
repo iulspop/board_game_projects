@@ -1,3 +1,5 @@
+require "io/console"
+
 VALID_CHOICE = ['rock', 'paper', 'scissors', 'lizard', 'Spock']
 VALID_SHORTCUT = VALID_CHOICE.map(&:chr).zip(VALID_CHOICE).to_h
 
@@ -16,6 +18,27 @@ end
 
 def clear_screen
   system('clear') || system('clr')
+end
+
+def welcome
+  clear_screen()
+  puts 'The welcome to the "Rock Paper Scissors Spock Lizard" game!', ''
+  sleep 0.15
+
+  prompt(
+    <<-MSG
+The rules are: 
+     Scissors cuts Paper, decapitates Lizard.
+     Paper covers Rock, disproves Spock.
+     Rock crushes Scissors, crushes Lizard.
+     Lizard eat Papers, poisons Spock.
+     Spock vaporizes Rock, crushes Scissors.
+  MSG
+  )
+
+  print "\n"
+  prompt 'Press any key to continue...'
+  STDIN.getch
 end
 
 def print_shortcuts
@@ -61,21 +84,26 @@ end
 
 def play_again?
   loop do
-    prompt 'Do you want to play again? Y/N'
     answer = gets.chomp.downcase
-    return true if ['yes', 'y'].include?(answer)
+    return true  if ['yes', 'y'].include?(answer)
     return false if ['no', 'n'].include?(answer)
     clear_screen()
     puts 'Oops. Please enter Yes or No.'
   end
 end
 
-loop do
-  choice = get_choice()
-  computer_choice = VALID_CHOICE.sample
+# player_score = 0
+# computer_score = 0
 
-  display_choices(choice, computer_choice)
-  display_results(choice, computer_choice)
+welcome()
+loop do
+  # while player_score < 5 || computer_score < 5
+    choice = get_choice()
+    computer_choice = VALID_CHOICE.sample
+
+    display_choices(choice, computer_choice)
+    display_results(choice, computer_choice)
+  # end
 
   break unless play_again?
 end
