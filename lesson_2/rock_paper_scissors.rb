@@ -112,7 +112,7 @@ def display_round_results(round_winner, player_choice, computer_choice)
     prompt "#{player_choice.capitalize} #{VERBS[player_choice][computer_choice]} #{computer_choice.capitalize}!"
     prompt 'You won this round.'
   when 'computer'
-    prompt "#{player_choice.capitalize} #{VERBS[computer_choice][player_choice]} #{computer_choice.capitalize}!"
+    prompt "#{computer_choice.capitalize} #{VERBS[computer_choice][player_choice]} #{player_choice.capitalize}!"
     prompt 'You lost this round.'
   when 'tie'
     prompt 'This round is a tie.'
