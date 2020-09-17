@@ -2,6 +2,28 @@ require "io/console"
 
 VALID_CHOICE = ['rock', 'paper', 'scissors', 'lizard', 'Spock']
 VALID_SHORTCUT = VALID_CHOICE.map(&:chr).zip(VALID_CHOICE).to_h
+VERBS = {
+  "scissors" => {
+    "paper": "cuts",
+    "lizard": "decapitates"
+  },
+  "paper" => {
+    "rock": "covers",
+    "Spock": "disproves"
+  },
+  "rock" => {
+    "scissors": "crushes",
+    "lizard": "crushes"
+  },
+  "lizard" => {
+    "paper": "eats",
+    "Spock": "poisons"
+  },
+  "Spock" => {
+    "rock": "vaporizes",
+    "scissors": "crushes"
+  }
+}
 
 WIN_CHOICES = VALID_CHOICE.permutation(2).to_a.select do |choice_pair|
   case choice_pair[0]
@@ -31,7 +53,7 @@ The rules are:
     - Scissors cuts Paper, decapitates Lizard.
     - Paper covers Rock, disproves Spock.
     - Rock crushes Scissors, crushes Lizard.
-    - Lizard eat Papers, poisons Spock.
+    - Lizard eats Paper, poisons Spock.
     - Spock vaporizes Rock, crushes Scissors.
      MSG
      )
