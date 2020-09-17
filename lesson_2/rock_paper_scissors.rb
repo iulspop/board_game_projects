@@ -38,7 +38,7 @@ The rules are:
   print "\n"
   prompt 'The first to score 5 points wins!', ''
 
-  prompt 'Press any key to continue...'
+  prompt 'Press any key to start game...'
   STDIN.getch
 end
 
@@ -92,8 +92,15 @@ def display_results(winner)
   puts ''
 end
 
+def display_winner(player_score, computer_score)
+  if player_score == 5
+    prompt "You won the game!"
+  else
+    prompt "You lost the game!"
+  end
+end
+
 def play_again?
-  clear_screen()
   loop do
     prompt 'Play again?'
     answer = gets.chomp.downcase
@@ -104,13 +111,12 @@ def play_again?
   end
 end
 
-
 welcome()
 loop do
   player_score = 0
   computer_score = 0
 
-  until player_score == 5 || computer_score == 5
+  loop do
     display_score(player_score, computer_score)
 
     player_choice = get_choice()
@@ -122,12 +128,14 @@ loop do
 
     display_score(player_score, computer_score)
     display_choices(player_choice, computer_choice)
-    display_results(winner)
 
-    prompt 'Press any key to continue...'
+    break if player_score == 5 || computer_score == 5
+
+    prompt 'Press any key to start next round...'
     STDIN.getch
   end
 
+  display_winner(player_score, computer_score)
   break unless play_again?
 end
 
