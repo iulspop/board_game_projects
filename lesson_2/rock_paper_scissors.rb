@@ -33,10 +33,11 @@ The rules are:
      Rock crushes Scissors, crushes Lizard.
      Lizard eat Papers, poisons Spock.
      Spock vaporizes Rock, crushes Scissors.
-  MSG
-  )
-
+     MSG
+     )
   print "\n"
+  prompt 'The first to score 5 points wins!', ''
+
   prompt 'Press any key to continue...'
   STDIN.getch
 end
