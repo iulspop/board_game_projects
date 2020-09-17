@@ -63,8 +63,13 @@ def get_choice
   choice
 end
 
-def display_choices(choice, computer_choice)
+def display_score(player_score, computer_score)
   clear_screen()
+  puts '==== SCORE ===='
+  puts "Player: #{player_score}  Computer: #{computer_score}", ''
+end
+
+def display_choices(choice, computer_choice)
   prompt(<<-MSG
 You chose:      #{choice.capitalize}
     Computer chose: #{computer_choice.capitalize}
@@ -81,6 +86,7 @@ def display_results(player, computer)
   if win?(player, computer) then prompt 'You won!'
   elsif win?(computer, player) then prompt 'You lost!'
   else prompt "It's a tie!" end
+  puts ''
 end
 
 def play_again?
@@ -94,8 +100,8 @@ def play_again?
   end
 end
 
-# player_score = 0
-# computer_score = 0
+player_score = 0
+computer_score = 0
 
 welcome()
 loop do
@@ -103,6 +109,7 @@ loop do
     choice = get_choice()
     computer_choice = VALID_CHOICE.sample
 
+    display_score(player_score, computer_score)
     display_choices(choice, computer_choice)
     display_results(choice, computer_choice)
   # end
