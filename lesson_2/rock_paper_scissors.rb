@@ -70,11 +70,8 @@ def display_score(player_score, computer_score)
 end
 
 def display_choices(choice, computer_choice)
-  prompt(<<-MSG
-You chose:      #{choice.capitalize}
-    Computer chose: #{computer_choice.capitalize}
-  MSG
-        )
+    puts "You chose:      #{choice.capitalize}"
+    puts "Computer chose: #{computer_choice.capitalize}", ''
 end
 
 def win?(first, second)
