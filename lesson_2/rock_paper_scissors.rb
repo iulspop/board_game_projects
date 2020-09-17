@@ -24,12 +24,9 @@ def get_choice
     prompt("Choose one: #{VALID_CHOICE.join(', ')}")
     choice = gets.chomp
 
-    if VALID_CHOICE.include?(choice)
-      break
-    else
-      clear_screen()
-      prompt('Oops. That\'s not a valid choice.')
-    end
+    break if VALID_CHOICE.include?(choice)
+    clear_screen()
+    prompt('Oops. That\'s not a valid choice.')
   end
   choice
 end
