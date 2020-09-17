@@ -33,6 +33,15 @@ def get_choice
   choice
 end
 
+def display_choices(choice, computer_choice)
+  clear_screen()
+  prompt(<<-MSG
+You chose:      #{choice.capitalize}
+    Computer chose: #{computer_choice.capitalize}
+  MSG
+  )
+end
+
 def win?(first, second)
   choices = [first, second]
   WIN_CHOICES.include?(choices)
@@ -48,19 +57,25 @@ def display_results(player, computer)
   end
 end
 
-
+def play_again?
+  loop do
+    prompt('Do you want to play again? Y/N')
+    answer = gets.chomp.downcase
+    return true if ['yes', 'y'].include?(answer)
+    return false if ['no', 'n'].include?(answer)
+    clear_screen()
+    puts 'Oops. Please enter Yes or No.'
+  end
+end
 
 loop do
   choice = get_choice()
   computer_choice = %w[rock paper scissors].sample
   
-  clear_screen()
-  prompt("You chose: #{choice.capitalize}; Computer chose: #{computer_choice.capitalize}")
-
+  display_choices(choice, computer_choice)
   display_results(choice, computer_choice)
-  prompt('Do you want to play again?')
-  answer = gets.chomp.downcase
-  break unless answer.start_with?('y')
+
+  break unless play_again?
 end
 
 prompt('Thank you for playing. Good bye!')
