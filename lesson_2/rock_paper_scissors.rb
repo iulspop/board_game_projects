@@ -84,6 +84,7 @@ end
 
 def play_again?
   loop do
+    prompt 'Play again?'
     answer = gets.chomp.downcase
     return true  if ['yes', 'y'].include?(answer)
     return false if ['no', 'n'].include?(answer)
