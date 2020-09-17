@@ -4,26 +4,28 @@ VALID_CHOICE = ['rock', 'paper', 'scissors', 'lizard', 'Spock']
 VALID_SHORTCUT = VALID_CHOICE.map(&:chr).zip(VALID_CHOICE).to_h
 VERBS = {
   "scissors" => {
-    "paper": "cuts",
-    "lizard": "decapitates"
+    "paper" => "cuts",
+    "lizard" => "decapitates"
   },
   "paper" => {
-    "rock": "covers",
-    "Spock": "disproves"
+    "rock" => "covers",
+    "Spock" => "disproves"
   },
   "rock" => {
-    "scissors": "crushes",
-    "lizard": "crushes"
+    "scissors" => "crushes",
+    "lizard" => "crushes"
   },
   "lizard" => {
-    "paper": "eats",
-    "Spock": "poisons"
+    "paper" => "eats",
+    "Spock" => "poisons"
   },
   "Spock" => {
-    "rock": "vaporizes",
-    "scissors": "crushes"
+    "rock" => "vaporizes",
+    "scissors" => "crushes"
   }
 }
+
+binding.pry
 
 WIN_CHOICES = VALID_CHOICE.permutation(2).to_a.select do |choice_pair|
   case choice_pair[0]
@@ -106,11 +108,18 @@ def compute_winner(player_choice, computer_choice)
   return 'tie'
 end
 
-def display_round_results(winner)
-  case winner
-  when 'player'   then prompt 'You won this round!'
-  when 'computer' then prompt 'You lost this round!'
-  when 'tie'      then prompt 'This round is a tie!' end
+def display_round_results(round_winner, player_choice, computer_choice)
+  p VERBS[player_choice][computer_choice]
+  case round_winner
+  when 'player'
+    prompt "#{player_choice.capitalize} #{VERBS[player_choice][computer_choice]} #{computer_choice.capitalize}"
+    prompt 'You won this round!'
+  when 'computer'
+    prompt "#{player_choice.capitalize} #{VERBS[computer_choice][player_choice]} #{computer_choice.capitalize}"
+    prompt 'You lost this round!'
+  when 'tie'
+    prompt 'This round is a tie!'
+  end
   puts ''
 end
 
@@ -149,7 +158,7 @@ loop do
     computer_score += 1 if round_winner == 'computer'
 
     display_score(player_score, computer_score)
-    display_round_results(round_winner)
+    display_round_results(round_winner, player_choice, computer_choice)
     display_choices(player_choice, computer_choice)
 
     break if player_score == 5 || computer_score == 5
