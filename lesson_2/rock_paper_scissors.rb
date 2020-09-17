@@ -25,8 +25,6 @@ VERBS = {
   }
 }
 
-binding.pry
-
 WIN_CHOICES = VALID_CHOICE.permutation(2).to_a.select do |choice_pair|
   case choice_pair[0]
   when 'rock' then ['scissors', 'lizard'].include?(choice_pair[1])
@@ -109,16 +107,15 @@ def compute_winner(player_choice, computer_choice)
 end
 
 def display_round_results(round_winner, player_choice, computer_choice)
-  p VERBS[player_choice][computer_choice]
   case round_winner
   when 'player'
-    prompt "#{player_choice.capitalize} #{VERBS[player_choice][computer_choice]} #{computer_choice.capitalize}"
-    prompt 'You won this round!'
+    prompt "#{player_choice.capitalize} #{VERBS[player_choice][computer_choice]} #{computer_choice.capitalize}!"
+    prompt 'You won this round.'
   when 'computer'
-    prompt "#{player_choice.capitalize} #{VERBS[computer_choice][player_choice]} #{computer_choice.capitalize}"
-    prompt 'You lost this round!'
+    prompt "#{player_choice.capitalize} #{VERBS[computer_choice][player_choice]} #{computer_choice.capitalize}!"
+    prompt 'You lost this round.'
   when 'tie'
-    prompt 'This round is a tie!'
+    prompt 'This round is a tie.'
   end
   puts ''
 end
