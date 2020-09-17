@@ -70,7 +70,7 @@ end
 
 loop do
   choice = get_choice()
-  computer_choice = %w[rock paper scissors].sample
+  computer_choice = VALID_CHOICE.sample
   
   display_choices(choice, computer_choice)
   display_results(choice, computer_choice)
