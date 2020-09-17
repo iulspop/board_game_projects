@@ -84,15 +84,15 @@ def compute_winner(player_choice, computer_choice)
   return 'tie'
 end
 
-def display_results(winner)
+def display_round_results(winner)
   case winner
-  when 'player'   then prompt 'You won!'
-  when 'computer' then prompt 'You lost!'
-  when 'tie'      then prompt 'It\'s a tie!' end
+  when 'player'   then prompt 'You won this round!'
+  when 'computer' then prompt 'You lost this round!'
+  when 'tie'      then prompt 'This round is a tie!' end
   puts ''
 end
 
-def display_winner(player_score, computer_score)
+def display_game_winner(player_score, computer_score)
   if player_score == 5
     prompt "You won the game!"
   else
@@ -122,11 +122,12 @@ loop do
     player_choice = get_choice()
     computer_choice = VALID_CHOICE.sample
 
-    winner = compute_winner(player_choice, computer_choice)
-    player_score += 1 if winner == 'player'
-    computer_score += 1 if winner == 'computer'
+    round_winner = compute_winner(player_choice, computer_choice)
+    player_score += 1 if round_winner == 'player'
+    computer_score += 1 if round_winner == 'computer'
 
     display_score(player_score, computer_score)
+    display_round_results(round_winner)
     display_choices(player_choice, computer_choice)
 
     break if player_score == 5 || computer_score == 5
@@ -135,7 +136,7 @@ loop do
     STDIN.getch
   end
 
-  display_winner(player_score, computer_score)
+  display_game_winner(player_score, computer_score)
   break unless play_again?
 end
 
