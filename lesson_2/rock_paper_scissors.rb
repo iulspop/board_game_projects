@@ -28,11 +28,11 @@ def welcome
   prompt(
     <<-MSG
 The rules are: 
-     Scissors cuts Paper, decapitates Lizard.
-     Paper covers Rock, disproves Spock.
-     Rock crushes Scissors, crushes Lizard.
-     Lizard eat Papers, poisons Spock.
-     Spock vaporizes Rock, crushes Scissors.
+    - Scissors cuts Paper, decapitates Lizard.
+    - Paper covers Rock, disproves Spock.
+    - Rock crushes Scissors, crushes Lizard.
+    - Lizard eat Papers, poisons Spock.
+    - Spock vaporizes Rock, crushes Scissors.
      MSG
      )
   print "\n"
@@ -44,7 +44,7 @@ end
 
 def print_shortcuts
   prompt 'Shortcuts:'
-  VALID_SHORTCUT.each { |shortcut, choice| puts "#{shortcut} for #{choice}"}
+  VALID_SHORTCUT.each { |shortcut, choice| puts "    #{shortcut} for #{choice}"}
 end
 
 def get_choice
