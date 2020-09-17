@@ -17,6 +17,22 @@ def clear_screen
   system('clear') || system('clr')
 end
 
+def get_choice
+  clear_screen()
+  choice = ''
+  loop do
+    prompt("Choose one: #{VALID_CHOICE.join(', ')}")
+    choice = gets.chomp
+
+    if VALID_CHOICE.include?(choice)
+      break
+    else
+      prompt('That\'s not a valid choice.')
+    end
+  end
+  choice
+end
+
 def win?(first, second)
   choices = [first, second]
   WIN_CHOICES.include?(choices)
@@ -32,23 +48,13 @@ def display_results(player, computer)
   end
 end
 
+
+
 loop do
-  clear_screen()
-  choice = ''
-  loop do
-    prompt("Choose one: #{VALID_CHOICE.join(', ')}")
-    choice = gets.chomp
-
-    if VALID_CHOICE.include?(choice)
-      break
-    else
-      prompt('That\'s not a valid choice.')
-    end
-  end
-
-  clear_screen()
+  choice = get_choice()
   computer_choice = %w[rock paper scissors].sample
-
+  
+  clear_screen()
   prompt("You chose: #{choice.capitalize}; Computer chose: #{computer_choice.capitalize}")
 
   display_results(choice, computer_choice)
