@@ -8,11 +8,15 @@ def clear_screen
   system('clear') || system('clr')
 end
 
+def win?(first, second)
+  choices = first + ' ' + second
+  ['rock scissors', 'paper rock', 'scissors paper'].include?(choices)
+end
+
 def display_results(player, computer)
-  choices = player + ' ' + computer
-  if ['rock scissors', 'paper rock', 'scissors paper'].include?(choices)
+  if win?(player, computer)
     prompt('You won!')
-  elsif ['scissors rock', 'rock paper', 'paper scissors'].include?(choices)
+  elsif win?(computer, player)
     prompt('You lost!')
   else
     prompt("It's a tie!")
