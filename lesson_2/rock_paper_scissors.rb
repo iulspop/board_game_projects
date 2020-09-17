@@ -27,7 +27,8 @@ def get_choice
     if VALID_CHOICE.include?(choice)
       break
     else
-      prompt('That\'s not a valid choice.')
+      clear_screen()
+      prompt('Oops. That\'s not a valid choice.')
     end
   end
   choice
@@ -39,7 +40,7 @@ def display_choices(choice, computer_choice)
 You chose:      #{choice.capitalize}
     Computer chose: #{computer_choice.capitalize}
   MSG
-  )
+        )
 end
 
 def win?(first, second)
@@ -71,7 +72,7 @@ end
 loop do
   choice = get_choice()
   computer_choice = VALID_CHOICE.sample
-  
+
   display_choices(choice, computer_choice)
   display_results(choice, computer_choice)
 
