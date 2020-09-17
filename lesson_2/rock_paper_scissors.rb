@@ -48,7 +48,6 @@ def print_shortcuts
 end
 
 def get_choice
-  clear_screen()
   choice = ''
   loop do
     prompt "Choose one: #{VALID_CHOICE.join(', ')}"
@@ -79,14 +78,22 @@ def win?(first, second)
   WIN_CHOICES.include?(choices)
 end
 
-def display_results(player, computer)
-  if win?(player, computer) then prompt 'You won!'
-  elsif win?(computer, player) then prompt 'You lost!'
-  else prompt "It's a tie!" end
+def compute_winner(player_choice, computer_choice)
+  return 'player'   if win?(player_choice, computer_choice)
+  return 'computer' if win?(computer_choice, player_choice)
+  return 'tie'
+end
+
+def display_results(winner)
+  case winner
+  when 'player'   then prompt 'You won!'
+  when 'computer' then prompt 'You lost!'
+  when 'tie'      then prompt 'It\'s a tie!' end
   puts ''
 end
 
 def play_again?
+  clear_screen()
   loop do
     prompt 'Play again?'
     answer = gets.chomp.downcase
@@ -97,21 +104,32 @@ def play_again?
   end
 end
 
-player_score = 0
-computer_score = 0
 
 welcome()
 loop do
-  # while player_score < 5 || computer_score < 5
-    choice = get_choice()
+  player_score = 0
+  computer_score = 0
+
+  until player_score == 5 || computer_score == 5
+    display_score(player_score, computer_score)
+
+    player_choice = get_choice()
     computer_choice = VALID_CHOICE.sample
 
+    winner = compute_winner(player_choice, computer_choice)
+    player_score += 1 if winner == 'player'
+    computer_score += 1 if winner == 'computer'
+
     display_score(player_score, computer_score)
-    display_choices(choice, computer_choice)
-    display_results(choice, computer_choice)
-  # end
+    display_choices(player_choice, computer_choice)
+    display_results(winner)
+
+    prompt 'Press any key to continue...'
+    STDIN.getch
+  end
 
   break unless play_again?
 end
 
-prompt('Thank you for playing. Good bye!')
+clear_screen()
+puts 'Thank you for playing. Good bye!'
