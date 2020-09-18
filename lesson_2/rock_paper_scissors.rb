@@ -52,7 +52,7 @@ end
 
 def welcome
   clear_screen()
-  puts 'The welcome to the "Rock Paper Scissors Spock Lizard" game!', ''
+  puts 'Welcome to the "Rock Paper Scissors Spock Lizard" game!', ''
   sleep 0.15
 
   prompt(RULES_MESSAGE)
