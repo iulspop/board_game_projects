@@ -2,6 +2,15 @@ require "io/console"
 
 VALID_CHOICE = ['rock', 'paper', 'scissors', 'lizard', 'Spock']
 VALID_SHORTCUT = VALID_CHOICE.map(&:chr).zip(VALID_CHOICE).to_h
+WIN_CHOICES = VALID_CHOICE.permutation(2).to_a.select do |choice_pair|
+  case choice_pair[0]
+  when 'rock' then ['scissors', 'lizard'].include?(choice_pair[1])
+  when 'paper' then ['rock', 'Spock'].include?(choice_pair[1])
+  when 'scissors' then ['paper', 'lizard'].include?(choice_pair[1])
+  when 'lizard' then ['Spock', 'paper'].include?(choice_pair[1])
+  when 'Spock' then ['scissors', 'rock'].include?(choice_pair[1]) end
+end
+
 VERBS = {
   "scissors" => {
     "paper" => "cuts",
@@ -24,24 +33,6 @@ VERBS = {
     "scissors" => "crushes"
   }
 }
-
-WIN_CHOICES = VALID_CHOICE.permutation(2).to_a.select do |choice_pair|
-  case choice_pair[0]
-  when 'rock' then ['scissors', 'lizard'].include?(choice_pair[1])
-  when 'paper' then ['rock', 'Spock'].include?(choice_pair[1])
-  when 'scissors' then ['paper', 'lizard'].include?(choice_pair[1])
-  when 'lizard' then ['Spock', 'paper'].include?(choice_pair[1])
-  when 'Spock' then ['scissors', 'rock'].include?(choice_pair[1]) end
-end
-
-def prompt(message, *extra)
-  puts "==> #{message}", *extra
-end
-
-def clear_screen
-  system('clear') || system('clr')
-end
-
 RULES_MESSAGE = <<-MSG
 The rules are: 
     - Scissors cuts Paper, decapitates Lizard.
@@ -50,6 +41,14 @@ The rules are:
     - Lizard eats Paper, poisons Spock.
     - Spock vaporizes Rock, crushes Scissors.
 MSG
+
+def prompt(message, *extra)
+  puts "==> #{message}", *extra
+end
+
+def clear_screen
+  system('clear') || system('clr')
+end
 
 def welcome
   clear_screen()
@@ -84,17 +83,6 @@ def get_choice
   choice
 end
 
-def display_score(player_score, computer_score)
-  clear_screen()
-  puts '==== SCORE ===='
-  puts "Player: #{player_score}  Computer: #{computer_score}", ''
-end
-
-def display_choices(choice, computer_choice)
-  puts "You chose:      #{choice.capitalize}"
-  puts "Computer chose: #{computer_choice.capitalize}", ''
-end
-
 def win?(first, second)
   choices = [first, second]
   WIN_CHOICES.include?(choices)
@@ -104,6 +92,12 @@ def compute_winner(player_choice, computer_choice)
   return 'player'   if win?(player_choice, computer_choice)
   return 'computer' if win?(computer_choice, player_choice)
   'tie'
+end
+
+def display_score(player_score, computer_score)
+  clear_screen()
+  puts '==== SCORE ===='
+  puts "Player: #{player_score}  Computer: #{computer_score}", ''
 end
 
 def round_description(first, second)
@@ -122,6 +116,11 @@ def display_round_results(round_winner, player_choice, computer_choice)
     prompt 'This round is a tie.'
   end
   puts ''
+end
+
+def display_choices(choice, computer_choice)
+  puts "You chose:      #{choice.capitalize}"
+  puts "Computer chose: #{computer_choice.capitalize}", ''
 end
 
 def display_game_winner(player_score)
