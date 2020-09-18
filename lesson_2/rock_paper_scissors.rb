@@ -42,21 +42,21 @@ def clear_screen
   system('clear') || system('clr')
 end
 
-def welcome
-  clear_screen()
-  puts 'The welcome to the "Rock Paper Scissors Spock Lizard" game!', ''
-  sleep 0.15
-
-  prompt(
-    <<-MSG
+RULES_MESSAGE = <<-MSG
 The rules are: 
     - Scissors cuts Paper, decapitates Lizard.
     - Paper covers Rock, disproves Spock.
     - Rock crushes Scissors, crushes Lizard.
     - Lizard eats Paper, poisons Spock.
     - Spock vaporizes Rock, crushes Scissors.
-     MSG
-     )
+MSG
+
+def welcome
+  clear_screen()
+  puts 'The welcome to the "Rock Paper Scissors Spock Lizard" game!', ''
+  sleep 0.15
+
+  prompt(RULES_MESSAGE)
   print "\n"
   prompt 'The first to score 5 points wins!', ''
 
@@ -66,7 +66,7 @@ end
 
 def print_shortcuts
   prompt 'Shortcuts:'
-  VALID_SHORTCUT.each { |shortcut, choice| puts "    #{shortcut} for #{choice}"}
+  VALID_SHORTCUT.each { |shortcut, choice| puts "   #{shortcut} for #{choice}" }
 end
 
 def get_choice
@@ -91,8 +91,8 @@ def display_score(player_score, computer_score)
 end
 
 def display_choices(choice, computer_choice)
-    puts "You chose:      #{choice.capitalize}"
-    puts "Computer chose: #{computer_choice.capitalize}", ''
+  puts "You chose:      #{choice.capitalize}"
+  puts "Computer chose: #{computer_choice.capitalize}", ''
 end
 
 def win?(first, second)
@@ -103,16 +103,20 @@ end
 def compute_winner(player_choice, computer_choice)
   return 'player'   if win?(player_choice, computer_choice)
   return 'computer' if win?(computer_choice, player_choice)
-  return 'tie'
+  'tie'
+end
+
+def round_description(first, second)
+  "#{first.capitalize} #{VERBS[first][second]} #{second.capitalize}!"
 end
 
 def display_round_results(round_winner, player_choice, computer_choice)
   case round_winner
   when 'player'
-    prompt "#{player_choice.capitalize} #{VERBS[player_choice][computer_choice]} #{computer_choice.capitalize}!"
+    prompt(round_description(player_choice, computer_choice))
     prompt 'You won this round.'
   when 'computer'
-    prompt "#{computer_choice.capitalize} #{VERBS[computer_choice][player_choice]} #{player_choice.capitalize}!"
+    prompt(round_description(computer_choice, player_choice))
     prompt 'You lost this round.'
   when 'tie'
     prompt 'This round is a tie.'
@@ -120,7 +124,7 @@ def display_round_results(round_winner, player_choice, computer_choice)
   puts ''
 end
 
-def display_game_winner(player_score, computer_score)
+def display_game_winner(player_score)
   if player_score == 5
     prompt "You won the game!"
   else
@@ -164,7 +168,7 @@ loop do
     STDIN.getch
   end
 
-  display_game_winner(player_score, computer_score)
+  display_game_winner(player_score)
   break unless play_again?
 end
 
