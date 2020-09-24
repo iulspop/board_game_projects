@@ -10,6 +10,7 @@ WIN_CHOICES = VALID_CHOICE.permutation(2).to_a.select do |(first, second)|
   when 'lizard' then ['Spock', 'paper'].include?(second)
   when 'Spock' then ['scissors', 'rock'].include?(second) end
 end
+SCORE_TO_WIN = 5
 
 VERBS = {
   "scissors" => {
@@ -124,7 +125,7 @@ def display_choices(choice, computer_choice)
 end
 
 def display_game_winner(player_score)
-  if player_score == 5
+  if player_score == SCORE_TO_WIN
     prompt "You won the game!"
   else
     prompt "You lost the game!"
@@ -161,7 +162,7 @@ loop do
     display_round_results(round_winner, player_choice, computer_choice)
     display_choices(player_choice, computer_choice)
 
-    break if player_score == 5 || computer_score == 5
+    break if player_score == SCORE_TO_WIN || computer_score == SCORE_TO_WIN
 
     prompt 'Press any key to start next round...'
     STDIN.getch
