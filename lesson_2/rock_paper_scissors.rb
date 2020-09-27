@@ -1,5 +1,6 @@
 require "io/console"
 
+SCORE_TO_WIN = 5
 VALID_CHOICE = ['rock', 'paper', 'scissors', 'lizard', 'Spock']
 VALID_SHORTCUT = VALID_CHOICE.map(&:chr).zip(VALID_CHOICE).to_h
 WIN_CHOICES = VALID_CHOICE.permutation(2).to_a.select do |(first, second)|
@@ -10,7 +11,6 @@ WIN_CHOICES = VALID_CHOICE.permutation(2).to_a.select do |(first, second)|
   when 'lizard' then ['Spock', 'paper'].include?(second)
   when 'Spock' then ['scissors', 'rock'].include?(second) end
 end
-SCORE_TO_WIN = 5
 
 VERBS = {
   "scissors" => {
