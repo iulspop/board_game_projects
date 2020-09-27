@@ -132,6 +132,11 @@ def display_game_winner(player_score)
   end
 end
 
+def any_key_to_continue
+  prompt 'Press any key to start next round...'
+  STDIN.getch
+end
+
 def play_again?
   loop do
     prompt 'Play again?'
@@ -141,6 +146,11 @@ def play_again?
     clear_screen()
     puts 'Oops. Please enter Yes or No.'
   end
+end
+
+def goodbye
+  clear_screen()
+  puts 'Thank you for playing. Good bye!'
 end
 
 welcome()
@@ -164,13 +174,11 @@ loop do
 
     break if player_score == SCORE_TO_WIN || computer_score == SCORE_TO_WIN
 
-    prompt 'Press any key to start next round...'
-    STDIN.getch
+    any_key_to_continue
   end
 
   display_game_winner(player_score)
   break unless play_again?
 end
 
-clear_screen()
-puts 'Thank you for playing. Good bye!'
+goodbye()
