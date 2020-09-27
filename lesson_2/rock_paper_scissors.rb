@@ -95,10 +95,16 @@ def compute_winner(player_choice, computer_choice)
   'tie'
 end
 
-def display_score(player_score, computer_score)
+def update_score(scores, round_winner)
+  scores[:player_score] += 1 if round_winner == 'player'
+  scores[:computer_score] += 1 if round_winner == 'computer'
+end
+
+def display_score(scores)
   clear_screen()
   puts '==== SCORE ===='
-  puts "Player: #{player_score}  Computer: #{computer_score}", ''
+  puts "Player: #{scores[:player_score]}   " \
+  "Computer: #{scores[:computer_score]}" , ''
 end
 
 def round_description(first, second)
@@ -124,8 +130,8 @@ def display_choices(choice, computer_choice)
   puts "Computer chose: #{computer_choice.capitalize}", ''
 end
 
-def display_game_winner(player_score)
-  if player_score == SCORE_TO_WIN
+def display_game_winner(scores)
+  if scores[:player_score] == SCORE_TO_WIN
     prompt "You won the game!"
   else
     prompt "You lost the game!"
@@ -155,29 +161,30 @@ end
 
 welcome()
 loop do
-  player_score = 0
-  computer_score = 0
+  scores = {
+    player_score: 0,
+    computer_score: 0
+  }
 
   loop do
-    display_score(player_score, computer_score)
+    display_score(scores)
 
     player_choice = get_choice()
     computer_choice = VALID_CHOICE.sample
 
     round_winner = compute_winner(player_choice, computer_choice)
-    player_score += 1 if round_winner == 'player'
-    computer_score += 1 if round_winner == 'computer'
+    update_score(scores, round_winner)
 
-    display_score(player_score, computer_score)
+    display_score(scores)
     display_round_results(round_winner, player_choice, computer_choice)
     display_choices(player_choice, computer_choice)
 
-    break if player_score == SCORE_TO_WIN || computer_score == SCORE_TO_WIN
+    break if scores.values.include? SCORE_TO_WIN
 
     any_key_to_continue
   end
 
-  display_game_winner(player_score)
+  display_game_winner(scores)
   break unless play_again?
 end
 
