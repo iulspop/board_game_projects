@@ -65,26 +65,31 @@ def display_board(board)
   p board
 end
 
-def get_player_move(available_moves)
+def get_player_move(moves)
   prompt 'It your turn to mark a space.', ''
   player_move = ''
   loop do
     prompt MOVES_MESSAGE
     player_move = gets.chomp
-    break if available_moves.include?(player_move)
+    break if moves.include?(player_move)
     clear_screen()
     puts 'Oops, invalid move.'
   end
-  available_moves[player_move]
+  player_move
 end
 
-def get_computer_move(available_moves)
+def get_computer_move(moves)
   prompt 'It\'s the computers turn.', ''
   any_key_to_continue 'Press any key for computer mark square...'
-  available_moves.values.sample
+  moves.keys.sample
+end
+
+def update_available_moves!(move, moves)
+  moves.delete(move)
 end
 
 def update_board!(move, sign, board)
+  move = VALID_MOVES[move]
   board[move[0]][move[1]] = sign
 end
 
@@ -109,20 +114,24 @@ loop do
       ['','',''],
       ['','','']
     ]
-    available_moves = VALID_MOVES.dup
-
+    moves = VALID_MOVES.dup
     human_sign, computer_sign = assign_signs
     initiative = 'X'
 
     loop do
       display_board(board)
+
       if initiative == human_sign
-        player_move = get_player_move(available_moves)
+        player_move = get_player_move(moves)
+        update_available_moves!(player_move, moves)
         update_board!(player_move, human_sign, board)
+
       elsif initiative == computer_sign
-        computer_move = get_computer_move(available_moves)
+        computer_move = get_computer_move(moves)
+        update_available_moves!(computer_move, moves)
         update_board!(computer_move, computer_sign, board)
       end
+
       break if win?(board) || tie?(board)
       initiative = initiative == 'X' ? 'O' : 'X'
     end
