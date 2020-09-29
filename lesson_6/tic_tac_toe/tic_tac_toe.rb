@@ -84,7 +84,7 @@ def get_computer_move(available_moves)
   available_moves.values.sample
 end
 
-def update_board(move, sign, board)
+def update_board!(move, sign, board)
   board_copy[move[0]][move[1]] = sign
   board_copy
 end
@@ -119,10 +119,10 @@ loop do
       display_board(board)
       if initiative == human_sign
         player_move = get_player_move(available_moves)
-        update_board(player_move, human_sign, board)
+        update_board!(player_move, human_sign, board)
       elsif initiative == computer_sign
         computer_move = get_computer_move(available_moves)
-        update_board(computer_move, computer_sign, board)
+        update_board!(computer_move, computer_sign, board)
       end
       break if win?(board) || tie?(board)
       initiative = initiative == 'X' ? 'O' : 'X'
