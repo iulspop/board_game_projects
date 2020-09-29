@@ -65,7 +65,7 @@ def display_board(board)
   p board
 end
 
-def get_player_move(moves)
+def get_human_move(moves)
   prompt 'It your turn to mark a space.', ''
   player_move = ''
   loop do
@@ -91,6 +91,12 @@ end
 def update_board!(move, sign, board)
   move = VALID_MOVES[move]
   board[move[0]][move[1]] = sign
+end
+
+def make_a_move(player, sign, moves, board)
+  move = player == "human" ? get_human_move(moves): get_computer_move(moves)
+  update_available_moves!(move, moves)
+  update_board!(move, sign, board)
 end
 
 def win?(board)
@@ -122,14 +128,9 @@ loop do
       display_board(board)
 
       if initiative == human_sign
-        player_move = get_player_move(moves)
-        update_available_moves!(player_move, moves)
-        update_board!(player_move, human_sign, board)
 
       elsif initiative == computer_sign
-        computer_move = get_computer_move(moves)
-        update_available_moves!(computer_move, moves)
-        update_board!(computer_move, computer_sign, board)
+
       end
 
       break if win?(board) || tie?(board)
