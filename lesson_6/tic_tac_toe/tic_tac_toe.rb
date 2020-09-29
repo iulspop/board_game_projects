@@ -143,21 +143,6 @@ loop do
 end
 
 =begin
-welcome
-assign X or O to player
-if play X, O to computer
-
-if player X, display board, ask for input
-if player O, display board, ask any key for computer to play
-
-after player play, check win, check full -> line 7
-after computer play, check win, check full -> line 6
-
-after win or tie, display winner, continue?
-
-goodbye
-
-Welcome
 begin loop
   Set Score
 
@@ -179,88 +164,5 @@ begin loop
 
   Play again?
   Goobye
-
-____________
-|          |
-|          |
-|          |
-|          |
-|          |
-____________
-
-__________
-| \    / |
-|  \  /  |
-|   \/   |
-|   /\   |
-|  /  \  |
-| /    \ |
-__________
-__________
-|        |
-|        |
-|        |
-|        |
-|        |
-|        |
-__________
-__________
-|        |
-|        |
-|        |
-|        |
-|        |
-|        |
-__________
-
-
-__________________________________
-|          |          |          |
-|          |          |          |
-|          |          |          |
-|          |          |          |
-|          |          |          |
-__________________________________
-
-
-
-          |          |          
-          |          |          
-          |          |          
-          |          |          
-          |          |          
-________________________________
-          |          |          
-          |          |          
-          |          |          
-          |          |          
-          |          |          
-________________________________
-          |          |          
-          |          |          
-          |          |          
-          |          |          
-          |          |          
-
-
-__________________________________
-|\        /|          |          |
-| \      / |          |          |
-|       /  |          |          |
-|          |          |          |
-|          |          |          |
-__________________________________
-|          |          |          |
-|          |          |          |
-|          |          |          |
-|          |          |          |
-|          |          |          |
-__________________________________
-|          |          |          |
-|          |          |          |
-|          |          |          |
-|          |          |          |
-|          |          |          |
-__________________________________
-
+end
 =end
