@@ -84,6 +84,10 @@ def get_computer_move
   VALID_MOVES.values.sample
 end
 
+def update_board!(move, sign, board)
+  board[move[0]][move[1]] = sign
+end
+
 # welcome()
 loop do
   scores = {
@@ -105,9 +109,12 @@ loop do
       display_board(board)
       if initiative == human_sign
         player_move = get_player_move()
+        update_board!(player_move, human_sign, board)
       elsif initiative == computer_sign
         computer_move = get_computer_move()
+        update_board!(computer_move, computer_sign, board)
       end
+      p board
       break
     end
 
