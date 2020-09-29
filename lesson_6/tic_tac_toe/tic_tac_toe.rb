@@ -126,6 +126,7 @@ loop do
         board = updated_board(computer_move, computer_sign, board)
       end
       break if win?(board) || tie?(board)
+      initiative = initiative == 'X' ? 'O' : 'X'
     end
 
     break
