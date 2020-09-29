@@ -107,6 +107,10 @@ def tie?(board)
   false
 end
 
+def pass_initiative(initiative)
+  initiative == 'X' ? 'O' : 'X'
+end
+
 # welcome()
 loop do
   scores = {
@@ -135,7 +139,7 @@ loop do
       end
 
       break if win?(board) || tie?(board)
-      initiative = initiative == 'X' ? 'O' : 'X'
+      initiative = pass_initiative(initiative)
     end
 
     break
