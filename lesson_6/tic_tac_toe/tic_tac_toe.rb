@@ -104,9 +104,9 @@ loop do
     loop do
       display_board(board)
       if initiative == human_sign
-        player_move = get_player_move
+        player_move = get_player_move()
       elsif initiative == computer_sign
-        computer_move = get_computer_move
+        computer_move = get_computer_move()
       end
       break
     end
