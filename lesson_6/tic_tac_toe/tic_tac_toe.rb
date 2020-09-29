@@ -61,12 +61,13 @@ def assign_signs
 end
 
 def display_board(board)
+  clear_screen()
   p board
 end
 
 def get_player_move
-  clear_screen()
   prompt 'It your turn to mark a space.', ''
+  player_move = ''
   loop do
     prompt MOVES_MESSAGE
     player_move = gets.chomp
@@ -75,6 +76,12 @@ def get_player_move
     puts 'Oops, invalid move.'
   end
   VALID_MOVES[player_move]
+end
+
+def get_computer_move
+  prompt 'It\'s the computers turn.', ''
+  any_key_to_continue 'Press any key for computer mark square...'
+  VALID_MOVES.values.sample
 end
 
 # welcome()
@@ -99,7 +106,7 @@ loop do
       if initiative == human_sign
         player_move = get_player_move
       elsif initiative == computer_sign
-        prompt 'Press any key for computer to play move'
+        computer_move = get_computer_move
       end
       break
     end
