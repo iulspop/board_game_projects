@@ -1,6 +1,18 @@
 require 'io/console'
 load 'ascii_art.rb'
 
+VALID_MOVES = {
+  'q' => [0, 0],
+  'w' => [0, 1],
+  'e' => [0, 2],
+  'a' => [1, 0],
+  's' => [1, 1],
+  'd' => [1, 2],
+  'z' => [2, 0],
+  'x' => [2, 1],
+  'c' => [2, 2]
+}
+
 RULES_MESSAGE = <<-MSG
 The rules are: 
     Two players, X and O, take turns marking the spaces in a 3×3 grid. 
@@ -9,6 +21,13 @@ The rules are:
     in a horizontal, vertical, or diagonal row wins the round.
 
     The first to win three rounds wins the game!
+MSG
+
+MOVES_MESSAGE = <<-MSG
+To mark a square, select one of the following:
+    q w e
+    a s d
+    z x c
 MSG
 
 def prompt(message, *extra)
@@ -35,13 +54,59 @@ def welcome
   any_key_to_continue('Press any key to start playing...')
 end
 
-welcome()
+def assign_signs
+  human_sign = ['X', 'O'].sample
+  computer_sign = human_sign == 'X' ? 'O' : 'X'
+  [human_sign, computer_sign]
+end
+
+def display_board(board)
+  p board
+end
+
+def get_player_move
+  clear_screen()
+  prompt 'It your turn to mark a space.', ''
+  loop do
+    prompt MOVES_MESSAGE
+    player_move = gets.chomp
+    break if VALID_MOVES.include?(player_move)
+    clear_screen()
+    puts 'Oops, invalid move.'
+  end
+  VALID_MOVES[player_move]
+end
+
+# welcome()
 loop do
-  board = [
-    ['','',''],
-    ['','',''],
-    ['','','']
-  ]
+  scores = {
+    human_score: 0,
+    computer_score: 0
+  }
+
+  loop do
+    board = [
+      ['','',''],
+      ['','',''],
+      ['','','']
+    ]
+
+    human_sign, computer_sign = assign_signs
+    initiative = 'X'
+
+    loop do
+      display_board(board)
+      if initiative == human_sign
+        player_move = get_player_move
+      elsif initiative == computer_sign
+        prompt 'Press any key for computer to play move'
+      end
+      break
+    end
+
+    break
+  end
+
   break
 end
 
@@ -69,7 +134,7 @@ begin loop
 
     begin loop
       Display board
-      Display what players symbols
+      Display what players signs
       Ask for player to mark a square or any key for computer to mark square
       Check win or fill
       update initiative
