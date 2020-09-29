@@ -128,9 +128,10 @@ loop do
       display_board(board)
 
       if initiative == human_sign
+        make_a_move("human", human_sign, moves, board)
 
       elsif initiative == computer_sign
-
+        make_a_move("computer", computer_sign, moves, board)
       end
 
       break if win?(board) || tie?(board)
