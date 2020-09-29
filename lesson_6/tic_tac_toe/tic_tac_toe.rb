@@ -88,6 +88,14 @@ def update_board!(move, sign, board)
   board[move[0]][move[1]] = sign
 end
 
+def win?(board)
+  true
+end
+
+def tie?(board)
+  true
+end
+
 # welcome()
 loop do
   scores = {
@@ -115,8 +123,7 @@ loop do
         computer_move = get_computer_move(available_moves)
         update_board!(computer_move, computer_sign, board)
       end
-      p board
-      break
+      break if win?(board) || tie?(board)
     end
 
     break
