@@ -85,8 +85,7 @@ def get_computer_move(available_moves)
 end
 
 def update_board!(move, sign, board)
-  board_copy[move[0]][move[1]] = sign
-  board_copy
+  board[move[0]][move[1]] = sign
 end
 
 def win?(board)
