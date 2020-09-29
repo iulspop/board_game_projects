@@ -65,23 +65,23 @@ def display_board(board)
   p board
 end
 
-def get_player_move
+def get_player_move(available_moves)
   prompt 'It your turn to mark a space.', ''
   player_move = ''
   loop do
     prompt MOVES_MESSAGE
     player_move = gets.chomp
-    break if VALID_MOVES.include?(player_move)
+    break if available_moves.include?(player_move)
     clear_screen()
     puts 'Oops, invalid move.'
   end
-  VALID_MOVES[player_move]
+  available_moves[player_move]
 end
 
-def get_computer_move
+def get_computer_move(available_moves)
   prompt 'It\'s the computers turn.', ''
   any_key_to_continue 'Press any key for computer mark square...'
-  VALID_MOVES.values.sample
+  available_moves.values.sample
 end
 
 def update_board!(move, sign, board)
@@ -101,6 +101,7 @@ loop do
       ['','',''],
       ['','','']
     ]
+    available_moves = VALID_MOVES.dup
 
     human_sign, computer_sign = assign_signs
     initiative = 'X'
@@ -108,10 +109,10 @@ loop do
     loop do
       display_board(board)
       if initiative == human_sign
-        player_move = get_player_move()
+        player_move = get_player_move(available_moves)
         update_board!(player_move, human_sign, board)
       elsif initiative == computer_sign
-        computer_move = get_computer_move()
+        computer_move = get_computer_move(available_moves)
         update_board!(computer_move, computer_sign, board)
       end
       p board
