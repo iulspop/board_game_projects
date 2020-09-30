@@ -103,15 +103,19 @@ def vertical_slice(index, array)
   array.each_with_object([]) { |horizontal, slice| slice << horizontal[index] }
 end
 
+def vertical_slices(array)
+  slices = []
+  array[0].size.times { |index| slices << vertical_slice(index, array) }
+  slices
+end
+
 def get_board_slices(board)
   diagonals = [board[0][0] + board[1][1] + board[2][2],
                board[0][2] + board[1][1] + board[2][0]]
 
-  verticals = [vertical_slice(0, board),
-               vertical_slice(1, board),
-               vertical_slice(2, board)]
+  verticals = vertical_slices(board)
 
-  horizontals = [board[0].join, board[1].join, board[2].join]
+  horizontals = [board[0], board[1], board[2]]
 
   [diagonals, verticals, horizontals].flatten
 end
