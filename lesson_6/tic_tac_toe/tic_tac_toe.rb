@@ -23,11 +23,10 @@ The rules are:
     The first to win three rounds wins the game!
 MSG
 
-MOVES_MESSAGE = <<-MSG
-To mark a square, select one of the following:
-    q w e
-    a s d
-    z x c
+MOVES_DISPLAY = <<-MSG
+q w e
+a s d
+z x c
 MSG
 
 def prompt(message, *extra)
@@ -65,14 +64,22 @@ def display_board(board)
   p board
 end
 
+def diplay_moves(moves)
+  removed = VALID_MOVES.keys.select do |move|
+    !moves.keys.include?(move)
+  end.join('|')
+  puts MOVES_DISPLAY.gsub(/#{removed}/, " ")
+end
+
 def get_human_move(moves)
   prompt 'It your turn to mark a space.', ''
   player_move = ''
   loop do
-    prompt MOVES_MESSAGE
+    prompt 'To mark a square, select one of the following:'
+    diplay_moves(moves)
     player_move = gets.chomp
+
     break if moves.include?(player_move)
-    clear_screen
     puts 'Oops, invalid move.'
   end
   player_move
