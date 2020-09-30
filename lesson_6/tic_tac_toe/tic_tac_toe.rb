@@ -113,15 +113,26 @@ def horizontal_slices(array)
   array.each_with_object([]) { |horizontal, slices| slices << horizontal }
 end
 
-def get_board_slices(board)
-  diagonals = [board[0][0] + board[1][1] + board[2][2],
-               board[0][2] + board[1][1] + board[2][0]]
+def diagonal_slice(array, reverse = false)
+  diagonal = []
+  array.each_with_index do |horizontal, index|
+    diagonal << horizontal[reverse == true ? -index : index]
+  end
+  diagonal
+end
 
-  [diagonals, vertical_slices(board), horizontals_slices(board)].flatten
+def main_diagonals(array)
+ [diagonal_slice(array), diagonal_slice(array)]
+end
+
+def board_slices(board)
+  [main_diagonals(board),
+   vertical_slices(board),
+   horizontal_slices(board)].each { |slices| slices.map!(&:join) }.flatten
 end
 
 def win?(board)
-  get_board_slices(board).any? { |slice| slice.match?(/(XXX)|(OOO)/) }
+  board_slices(board).any? { |slice| slice.match?(/(XXX)|(OOO)/) }
 end
 
 def tie?(board)
