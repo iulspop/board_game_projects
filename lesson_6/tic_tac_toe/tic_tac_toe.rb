@@ -109,15 +109,15 @@ def vertical_slices(array)
   slices
 end
 
+def horizontal_slices(array)
+  array.each_with_object([]) { |horizontal, slices| slices << horizontal }
+end
+
 def get_board_slices(board)
   diagonals = [board[0][0] + board[1][1] + board[2][2],
                board[0][2] + board[1][1] + board[2][0]]
 
-  verticals = vertical_slices(board)
-
-  horizontals = [board[0], board[1], board[2]]
-
-  [diagonals, verticals, horizontals].flatten
+  [diagonals, vertical_slices(board), horizontals_slices(board)].flatten
 end
 
 def win?(board)
