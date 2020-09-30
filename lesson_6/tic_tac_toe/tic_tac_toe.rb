@@ -122,7 +122,7 @@ def diagonal_slice(array, reverse = false)
 end
 
 def main_diagonals(array)
- [diagonal_slice(array), diagonal_slice(array)]
+  [diagonal_slice(array), diagonal_slice(array)]
 end
 
 def board_slices(board)
