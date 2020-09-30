@@ -102,17 +102,18 @@ end
 def get_board_slices(board)
   diagonal_0 = board[0][0] + board[1][1] + board[2][2]
   diagonal_1 = board[0][2] + board[1][1] + board[2][0]
-  horizontal_0 = board[0].join
-  horizontal_1 = board[1].join
-  horizontal_2 = board[2].join
+
   vertical_0 = board[0][0] + board[1][0] + board[2][0]
   vertical_1 = board[0][1] + board[1][1] + board[2][1]
   vertical_2 = board[0][2] + board[1][2] + board[2][2]
-  [
-   diagonal_0, diagonal_1,
-   horizontal_0, horizontal_1, horizontal_2,
-   vertical_0, vertical_1, vertical_2
-  ]
+
+  horizontal_0 = board[0].join
+  horizontal_1 = board[1].join
+  horizontal_2 = board[2].join
+
+  [diagonal_0, diagonal_1,
+   vertical_0, vertical_1, vertical_2,
+   horizontal_0, horizontal_1, horizontal_2]
 end
 
 def win?(board)
