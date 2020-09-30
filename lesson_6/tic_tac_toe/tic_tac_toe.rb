@@ -44,7 +44,7 @@ def any_key_to_continue(message)
 end
 
 def welcome
-  clear_screen()
+  clear_screen
   sleep 0.4
   puts TICTACTOE, ''
 
@@ -61,7 +61,7 @@ def assign_signs
 end
 
 def display_board(board)
-  clear_screen()
+  clear_screen
   p board
 end
 
@@ -72,7 +72,7 @@ def get_human_move(moves)
     prompt MOVES_MESSAGE
     player_move = gets.chomp
     break if moves.include?(player_move)
-    clear_screen()
+    clear_screen
     puts 'Oops, invalid move.'
   end
   player_move
@@ -94,34 +94,34 @@ def update_board!(move, sign, board)
 end
 
 def make_a_move(player, sign, moves, board)
-  move = player == "human" ? get_human_move(moves): get_computer_move(moves)
+  move = player == "human" ? get_human_move(moves) : get_computer_move(moves)
   update_available_moves!(move, moves)
   update_board!(move, sign, board)
 end
 
+def vertical_slice(index, array)
+  array.each_with_object([]) { |horizontal, slice| slice << horizontal[index] }
+end
+
 def get_board_slices(board)
-  diagonal_0 = board[0][0] + board[1][1] + board[2][2]
-  diagonal_1 = board[0][2] + board[1][1] + board[2][0]
+  diagonals = [board[0][0] + board[1][1] + board[2][2],
+               board[0][2] + board[1][1] + board[2][0]]
 
-  vertical_0 = board[0][0] + board[1][0] + board[2][0]
-  vertical_1 = board[0][1] + board[1][1] + board[2][1]
-  vertical_2 = board[0][2] + board[1][2] + board[2][2]
+  verticals = [vertical_slice(0, board),
+               vertical_slice(1, board),
+               vertical_slice(2, board)]
 
-  horizontal_0 = board[0].join
-  horizontal_1 = board[1].join
-  horizontal_2 = board[2].join
+  horizontals = [board[0].join, board[1].join, board[2].join]
 
-  [diagonal_0, diagonal_1,
-   vertical_0, vertical_1, vertical_2,
-   horizontal_0, horizontal_1, horizontal_2]
+  [diagonals, verticals, horizontals].flatten
 end
 
 def win?(board)
-  get_board_slices(board).any? { |slice| slice.match? /(XXX)|(OOO)/ }
+  get_board_slices(board).any? { |slice| slice.match?(/(XXX)|(OOO)/) }
 end
 
 def tie?(board)
-  board.all? { |row| row.all? { |square| square.match? /X|O/ } }
+  board.all? { |row| row.all? { |square| square.match?(/X|O/) } }
 end
 
 def pass_initiative(initiative)
@@ -137,9 +137,9 @@ loop do
 
   loop do
     board = [
-      ['','',''],
-      ['','',''],
-      ['','','']
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', '']
     ]
     moves = VALID_MOVES.dup
     human_sign, computer_sign = assign_signs
