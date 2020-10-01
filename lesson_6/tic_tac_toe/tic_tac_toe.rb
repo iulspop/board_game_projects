@@ -4,6 +4,7 @@ load 'constants.rb'
 load 'methods.rb'
 
 welcome
+
 loop do
   scores = {
     human_score: 0,
