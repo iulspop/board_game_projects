@@ -74,7 +74,11 @@ end
 
 def diplay_moves(available_moves)
   unavailable_moves = get_unavailable_moves(available_moves)
-  puts MOVES_DISPLAY.gsub(/#{unavailable_moves}/, " ")
+  if unavailable_moves == ''
+    puts MOVES_DISPLAY
+  else
+    puts MOVES_DISPLAY.gsub(/#{unavailable_moves}/, " ")
+  end
 end
 
 def get_human_move(moves)
