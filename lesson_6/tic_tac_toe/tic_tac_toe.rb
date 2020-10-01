@@ -139,7 +139,7 @@ def diagonal_slice(array, reverse = false)
 end
 
 def diagonal_slices(array)
-  [diagonal_slice(array), diagonal_slice(array, reverse = true)]
+  [diagonal_slice(array), diagonal_slice(array, true)]
 end
 
 def board_slices(board)
@@ -170,7 +170,7 @@ end
 def display_score(scores)
   puts '', '==== SCORE ===='
   puts "Player: #{scores[:human_score]}   " \
-  "Computer: #{scores[:computer_score]}" , ''
+  "Computer: #{scores[:computer_score]}", ''
 end
 
 def update_score(round_winner, scores)
@@ -208,17 +208,17 @@ def play_again?
     answer = gets.chomp.downcase
     return true  if ['yes', 'y'].include?(answer)
     return false if ['no', 'n'].include?(answer)
-    clear_screen()
+    clear_screen
     puts 'Oops. Please enter Yes or No.'
   end
 end
 
 def goodbye
-  clear_screen()
+  clear_screen
   puts 'Thank you for playing. Good bye!'
 end
 
-# welcome()
+welcome
 loop do
   scores = {
     human_score: 0,
@@ -246,7 +246,8 @@ loop do
         make_a_move("computer", computer_sign, moves, board)
       end
 
-      break if round_winner = get_round_winner(board, human_sign, computer_sign)
+      round_winner = get_round_winner(board, human_sign, computer_sign)
+      break if round_winner
       initiative = pass_initiative(initiative)
     end
 
@@ -263,4 +264,4 @@ loop do
   break unless play_again?
 end
 
-#goodbye
+goodbye
