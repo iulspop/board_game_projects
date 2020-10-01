@@ -66,11 +66,11 @@ def display_board(board)
   p board
 end
 
-def diplay_moves(moves)
-  removed = VALID_MOVES.keys.select do |move|
-    !moves.keys.include?(move)
+def diplay_moves(available_moves)
+  unavailable_moves = VALID_MOVES.keys.reject do |move|
+    available_moves.keys.include?(move)
   end.join('|')
-  puts MOVES_DISPLAY.gsub(/#{removed}/, " ")
+  puts MOVES_DISPLAY.gsub(/#{unavailable_moves}/, " ")
 end
 
 def get_human_move(moves)
