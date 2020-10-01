@@ -60,7 +60,7 @@ def assign_signs
 end
 
 def display_board(board)
-  clear_screen
+  # clear_screen
   p board
 end
 
@@ -123,13 +123,13 @@ end
 def diagonal_slice(array, reverse = false)
   diagonal = []
   array.each_with_index do |horizontal, index|
-    diagonal << horizontal[reverse == true ? -index : index]
+    diagonal << horizontal[reverse == true ? -index - 1 : index]
   end
   diagonal
 end
 
 def main_diagonals(array)
-  [diagonal_slice(array), diagonal_slice(array)]
+  [diagonal_slice(array), diagonal_slice(array, reverse = true)]
 end
 
 def board_slices(board)
