@@ -128,12 +128,12 @@ def diagonal_slice(array, reverse = false)
   diagonal
 end
 
-def main_diagonals(array)
+def diagonals(array)
   [diagonal_slice(array), diagonal_slice(array, reverse = true)]
 end
 
 def board_slices(board)
-  [main_diagonals(board),
+  [diagonals(board),
    vertical_slices(board),
    horizontal_slices(board)].each { |slices| slices.map!(&:join) }.flatten
 end
