@@ -13,7 +13,7 @@ VALID_MOVES = {
   'c' => [2, 2]
 }
 
-WIN_SCORE = 3
+WIN_SCORE = 1
 
 RULES_MESSAGE = <<-MSG
 The rules are: 
@@ -194,6 +194,14 @@ def win_game?(scores)
   scores.values.include?(WIN_SCORE)
 end
 
+def display_game_winner(scores)
+  if scores[:human_score] == WIN_SCORE
+    prompt "You won the game!"
+  else
+    prompt "You lost the game!"
+  end
+end
+
 # welcome()
 loop do
   scores = {
@@ -227,16 +235,15 @@ loop do
     end
 
     display_board(board)
-
     update_score(round_winner, scores)
     display_score(scores)
-    display_round_winner(round_winner)
-  
+
     break if win_game?(scores)
+    display_round_winner(round_winner)
     any_key_to_continue('Press any key to start next round...')
   end
 
-  # display_game_winner
+  display_game_winner(scores)
   break # unless play_again?
 end
 
