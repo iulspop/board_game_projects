@@ -240,27 +240,4 @@ loop do
   break # unless play_again?
 end
 
-=begin
-begin loop
-  Set Score
-
-  begin loop
-    Assign randomly X or O for player
-
-    begin loop
-      Display board
-      Display what players signs
-      Ask for player to mark a square or any key for computer to mark square
-      Check win or fill
-      update initiative
-    end
-
-    Display round winner
-    Update score
-    Win Game?
-  end
-
-  Play again?
-  Goobye
-end
-=end
+#goodbye
