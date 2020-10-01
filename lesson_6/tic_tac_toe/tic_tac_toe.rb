@@ -60,7 +60,7 @@ def assign_signs
 end
 
 def display_board(board)
-  # clear_screen
+  clear_screen
   p board
 end
 
@@ -150,6 +150,12 @@ def pass_initiative(initiative)
   initiative == 'X' ? 'O' : 'X'
 end
 
+def display_score(scores)
+  puts '', '==== SCORE ===='
+  puts "Player: #{scores[:human_score]}   " \
+  "Computer: #{scores[:computer_score]}" , ''
+end
+
 # welcome()
 loop do
   scores = {
@@ -182,10 +188,14 @@ loop do
     end
 
     display_board(board)
-    break
+    display_score(scores)
+    # display_round_winner()
+    # update_score!(scores)
+    break #if win_game?(scores)
   end
 
-  break
+  # display_game_winner
+  break # unless play_again?
 end
 
 =begin
