@@ -202,6 +202,22 @@ def display_game_winner(scores)
   end
 end
 
+def play_again?
+  loop do
+    prompt 'Play again?'
+    answer = gets.chomp.downcase
+    return true  if ['yes', 'y'].include?(answer)
+    return false if ['no', 'n'].include?(answer)
+    clear_screen()
+    puts 'Oops. Please enter Yes or No.'
+  end
+end
+
+def goodbye
+  clear_screen()
+  puts 'Thank you for playing. Good bye!'
+end
+
 # welcome()
 loop do
   scores = {
@@ -244,7 +260,7 @@ loop do
   end
 
   display_game_winner(scores)
-  break # unless play_again?
+  break unless play_again?
 end
 
 #goodbye
