@@ -66,10 +66,14 @@ def display_board(board)
   p board
 end
 
-def diplay_moves(available_moves)
-  unavailable_moves = VALID_MOVES.keys.reject do |move|
+def get_unavailable_moves(available_moves)
+  VALID_MOVES.keys.reject do |move|
     available_moves.keys.include?(move)
   end.join('|')
+end
+
+def diplay_moves(available_moves)
+  unavailable_moves = get_unavailable_moves(available_moves)
   puts MOVES_DISPLAY.gsub(/#{unavailable_moves}/, " ")
 end
 
