@@ -13,6 +13,8 @@ VALID_MOVES = {
   'c' => [2, 2]
 }
 
+WIN_SCORE = 3
+
 RULES_MESSAGE = <<-MSG
 The rules are: 
     Two players, X and O, take turns marking the spaces in a 3×3 grid. 
@@ -138,12 +140,19 @@ def board_slices(board)
    horizontal_slices(board)].each { |slices| slices.map!(&:join) }.flatten
 end
 
-def win?(board)
-  board_slices(board).any? { |slice| slice.match?(/(XXX)|(OOO)/) }
+def win_sign(board)
+  return 'X' if board_slices(board).any? { |slice| slice.match?(/XXX/) }
+  return 'O' if board_slices(board).any? { |slice| slice.match?(/OOO/) }
 end
 
 def tie?(board)
   board.all? { |row| row.all? { |square| square.match?(/X|O/) } }
+end
+
+def get_round_winner(board, human_sign, computer_sign)
+  return 'human' if win_sign(board) == human_sign
+  return 'computer' if win_sign(board) == computer_sign
+  return 'tie' if tie?(board)
 end
 
 def pass_initiative(initiative)
@@ -154,6 +163,27 @@ def display_score(scores)
   puts '', '==== SCORE ===='
   puts "Player: #{scores[:human_score]}   " \
   "Computer: #{scores[:computer_score]}" , ''
+end
+
+def update_score(round_winner, scores)
+  scores[:human_score] += 1 if round_winner == 'human'
+  scores[:computer_score] += 1 if round_winner == 'computer'
+end
+
+def display_round_winner(round_winner)
+  case round_winner
+  when 'human'
+    prompt 'You won this round!'
+  when 'computer'
+    prompt 'You lost this round!'
+  when 'tie'
+    prompt 'This round is a tie.'
+  end
+  puts ''
+end
+
+def win_game?(scores)
+  scores.values.include?(WIN_SCORE)
 end
 
 # welcome()
@@ -172,6 +202,7 @@ loop do
     moves = VALID_MOVES.dup
     human_sign, computer_sign = assign_signs
     initiative = 'X'
+    round_winner = nil
 
     loop do
       display_board(board)
@@ -183,15 +214,18 @@ loop do
         make_a_move("computer", computer_sign, moves, board)
       end
 
-      break if win?(board) || tie?(board)
+      break if round_winner = get_round_winner(board, human_sign, computer_sign)
       initiative = pass_initiative(initiative)
     end
 
     display_board(board)
+
+    update_score(round_winner, scores)
     display_score(scores)
-    # display_round_winner()
-    # update_score!(scores)
-    break #if win_game?(scores)
+    display_round_winner(round_winner)
+  
+    break if win_game?(scores)
+    any_key_to_continue('Press any key to start next round...')
   end
 
   # display_game_winner
