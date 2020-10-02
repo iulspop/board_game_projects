@@ -20,10 +20,10 @@ def welcome
   any_key_to_continue('Press any key to start playing...')
 end
 
-def assign_signs
-  human_sign = ['X', 'O'].sample
-  computer_sign = human_sign == 'X' ? 'O' : 'X'
-  [human_sign, computer_sign]
+def assign_markers
+  human_marker = ['X', 'O'].sample
+  computer_marker = human_marker == 'X' ? 'O' : 'X'
+  [human_marker, computer_marker]
 end
 
 def concat_vertical(string1, string2)
@@ -144,7 +144,7 @@ def board_slices(board)
    horizontal_slices(board)].each { |slices| slices.map!(&:join) }.flatten
 end
 
-def win_sign(board)
+def win_marker(board)
   return 'X' if board_slices(board).any? { |slice| slice.match?(/XXX/) }
   return 'O' if board_slices(board).any? { |slice| slice.match?(/OOO/) }
 end
@@ -153,9 +153,9 @@ def tie?(board)
   board.all? { |row| row.all? { |square| square.match?(/X|O/) } }
 end
 
-def get_round_winner(board, human_sign, computer_sign)
-  return 'human' if win_sign(board) == human_sign
-  return 'computer' if win_sign(board) == computer_sign
+def get_round_winner(board, human_marker, computer_marker)
+  return 'human' if win_marker(board) == human_marker
+  return 'computer' if win_marker(board) == computer_marker
   return 'tie' if tie?(board)
 end
 

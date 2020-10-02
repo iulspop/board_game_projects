@@ -18,21 +18,22 @@ loop do
       ['', '', '']
     ]
     moves = VALID_MOVES.dup
-    human_sign, computer_sign = assign_signs
+    human_marker, computer_marker = assign_markers
     initiative = 'X'
     round_winner = nil
 
     loop do
       display_board(board)
 
-      if initiative == human_sign
-        make_a_move("human", human_sign, moves, board)
+      if initiative == human_marker
+        make_a_move("human", human_marker, moves, board)
 
-      elsif initiative == computer_sign
-        make_a_move("computer", computer_sign, moves, board)
+      elsif initiative == computer_marker
+        make_a_move("computer", computer_marker, moves, board)
       end
 
-      break if round_winner = get_round_winner(board, human_sign, computer_sign)
+      round_winner = get_round_winner(board, human_marker, computer_marker)
+      break if round_winner
       initiative = pass_initiative(initiative)
     end
 
