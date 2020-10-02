@@ -32,8 +32,7 @@ loop do
         make_a_move("computer", computer_sign, moves, board)
       end
 
-      round_winner = get_round_winner(board, human_sign, computer_sign)
-      break if round_winner
+      break if round_winner = get_round_winner(board, human_sign, computer_sign)
       initiative = pass_initiative(initiative)
     end
 
