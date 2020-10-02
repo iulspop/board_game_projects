@@ -270,10 +270,11 @@ loop do
     loop do
       display_board(board)
 
-      if initiative == markers[:human]
+      case initiative
+      when markers[:human]
         make_a_move("human", markers[:human], moves, board)
 
-      elsif initiative == markers[:computer]
+      when markers[:computer]
         make_a_move("computer", markers[:computer], moves, board)
       end
 
