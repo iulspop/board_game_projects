@@ -13,10 +13,8 @@ end
 
 def welcome
   clear_screen
-  sleep 0.4
   puts 'Welcome to Tic Tac Toe game!', ''
 
-  sleep 0.4
   prompt RULES_MESSAGE, ''
 
   any_key_to_continue('Press any key to start playing...')
@@ -28,9 +26,40 @@ def assign_signs
   [human_sign, computer_sign]
 end
 
+def concat_vertical(string1, string2)
+  lines1 = string1.split("\n")
+  lines2 = string2.split("\n")
+  concat_lines = []
+
+  lines1.each_with_index do |line, index|
+    concat_lines << line + lines2[index]
+  end
+
+  concat_lines.join("\n")
+end
+
+def concat_many_verticals(*strings)
+  strings.reduce { |concat, string| concat_vertical(concat, string) }
+end
+
+def concat_row(first, middle, last)
+  concat_many_verticals(first, VERTICAL_LINE, middle, VERTICAL_LINE, last)
+end
+
+def to_ascii(square)
+  case square
+  when 'X' then X_MARK
+  when 'O' then O_MARK
+  when ''  then EMPTY_SQUARE end
+end
+
 def display_board(board)
   clear_screen
-  p board
+  ascii_board = board.map { |row| row.map { |square| to_ascii(square) } }
+  ascii_board.each do |row| 
+    puts concat_row(row[0], row[1], row[2]) + HORIZONTAL_LINE
+  end
+  puts ''
 end
 
 def get_unavailable_moves(available_moves)
