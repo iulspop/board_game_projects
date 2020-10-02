@@ -14,7 +14,7 @@ end
 def welcome
   clear_screen
   sleep 0.4
-  puts TICTACTOE, ''
+  puts 'Welcome to Tic Tac Toe game!', ''
 
   sleep 0.4
   prompt RULES_MESSAGE, ''
