@@ -10,7 +10,7 @@ VALID_MOVES = {
   'c' => [2, 2]
 }
 
-WIN_SCORE = 1
+WIN_SCORE = 3
 
 RULES_MESSAGE = <<-MSG
 The rules are: 
