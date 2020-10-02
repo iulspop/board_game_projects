@@ -204,8 +204,8 @@ def get_round_winner(board, markers)
   return 'tie' if tie?(board)
 end
 
-def pass_initiative(initiative)
-  initiative == 'X' ? 'O' : 'X'
+def pass_initiative!(initiative)
+  initiative == 'X' ? initiative.gsub!('X', 'O') : initiative.gsub!('O', 'X')
 end
 
 def display_score(scores)
@@ -278,7 +278,7 @@ loop do
       end
 
       break if round_winner = get_round_winner(board, markers)
-      initiative = pass_initiative(initiative)
+      pass_initiative!(initiative)
     end
 
     display_board(board)
