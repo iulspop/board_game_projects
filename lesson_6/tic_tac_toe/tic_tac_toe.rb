@@ -53,7 +53,7 @@ def welcome
   any_key_to_continue('Press any key to start playing...')
 end
 
-def assign_markers
+def asmarker_markers
   human_marker = ['X', 'O'].sample
   computer_marker = human_marker == 'X' ? 'O' : 'X'
   { human: human_marker, computer: computer_marker }
@@ -66,7 +66,7 @@ def setup_round
     ['', '', '']
   ],
    VALID_MOVES.dup,
-   assign_markers,
+   asmarker_markers,
    'X',
    nil]
 end
@@ -146,15 +146,15 @@ def update_available_moves!(move, moves)
   moves.delete(move)
 end
 
-def update_board!(move, sign, board)
+def update_board!(move, marker, board)
   move = VALID_MOVES[move]
-  board[move[0]][move[1]] = sign
+  board[move[0]][move[1]] = marker
 end
 
-def make_a_move(player, sign, moves, board)
+def make_a_move(player, marker, moves, board)
   move = player == "human" ? get_human_move(moves) : get_computer_move(moves)
   update_available_moves!(move, moves)
-  update_board!(move, sign, board)
+  update_board!(move, marker, board)
 end
 
 def vertical_slice(index, array)
