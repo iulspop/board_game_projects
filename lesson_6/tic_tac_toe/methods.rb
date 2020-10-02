@@ -56,7 +56,7 @@ end
 def display_board(board)
   clear_screen
   ascii_board = board.map { |row| row.map { |square| to_ascii(square) } }
-  ascii_board.each do |row| 
+  ascii_board.each do |row|
     puts concat_row(row[0], row[1], row[2]) + HORIZONTAL_LINE
   end
   puts ''
