@@ -59,6 +59,18 @@ def assign_markers
   { human: human_marker, computer: computer_marker }
 end
 
+def setup_round
+  [[
+    ['', '', ''],
+    ['', '', ''],
+    ['', '', '']
+  ],
+   VALID_MOVES.dup,
+   assign_markers,
+   'X',
+   nil]
+end
+
 def concat_vertical(string1, string2)
   lines1 = string1.split("\n")
   lines2 = string2.split("\n")
@@ -253,15 +265,7 @@ loop do
   scores = { human: 0, computer: 0 }
 
   loop do
-    board = [
-      ['', '', ''],
-      ['', '', ''],
-      ['', '', '']
-    ]
-    moves = VALID_MOVES.dup
-    markers = assign_markers
-    initiative = 'X'
-    round_winner = nil
+    board, moves, markers, initiative, round_winner = setup_round
 
     loop do
       display_board(board)
