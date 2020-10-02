@@ -1,18 +1,6 @@
 require 'io/console'
 load 'ascii_art.rb'
 
-VALID_MOVES = {
-  'q' => [0, 0],
-  'w' => [0, 1],
-  'e' => [0, 2],
-  'a' => [1, 0],
-  's' => [1, 1],
-  'd' => [1, 2],
-  'z' => [2, 0],
-  'x' => [2, 1],
-  'c' => [2, 2]
-}
-
 WIN_SCORE = 3
 
 RULES_MESSAGE = <<-MSG
@@ -24,6 +12,18 @@ The rules are:
 
     The first to win three rounds wins the game!
 MSG
+
+VALID_MOVES = {
+  'q' => [0, 0],
+  'w' => [0, 1],
+  'e' => [0, 2],
+  'a' => [1, 0],
+  's' => [1, 1],
+  'd' => [1, 2],
+  'z' => [2, 0],
+  'x' => [2, 1],
+  'c' => [2, 2]
+}
 
 MOVES_DISPLAY = <<-MSG
 q w e
