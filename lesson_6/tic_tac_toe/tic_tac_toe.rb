@@ -96,8 +96,8 @@ def display_board(board)
 end
 
 def get_unavailable_moves(available_moves)
-  VALID_MOVES.keys.reject do |move|
-    available_moves.keys.include?(move)
+  VALID_MOVES.keys.select do |move|
+    !available_moves.keys.include?(move)
   end.join('|')
 end
 
