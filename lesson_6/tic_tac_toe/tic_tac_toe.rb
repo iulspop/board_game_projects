@@ -199,7 +199,7 @@ end
 def display_score(scores)
   puts '', '==== SCORE ===='
   puts "Player: #{scores[:human]}   " \
-  "Computer: #{scores[:computer]}", ''
+       "Computer: #{scores[:computer]}", ''
 end
 
 def update_score(round_winner, scores)
