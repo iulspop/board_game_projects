@@ -32,6 +32,7 @@ X_MARK = <<-MSG
    |,-  -.|   
    ' /__\\ `   
     '    `    
+              
 MSG
 
 
@@ -43,6 +44,7 @@ O_MARK = <<-MSG
   | | () | |  
   \\ `.__,' /  
    `.____,'   
+              
 MSG
 
 EMPTY_SQUARE = <<-MSG
@@ -53,13 +55,15 @@ EMPTY_SQUARE = <<-MSG
               
               
               
+              
 MSG
 
 HORIZONTAL_LINE = <<-MSG
-_____________|____________|_______________
+\n______________|______________|_______________
 MSG
 
 VERTICAL_LINE = <<-MSG
+|
 |
 |
 |
@@ -81,4 +85,10 @@ def concat_lines(string1, string2)
   concat_lines.join("\n")
 end
 
-puts concat_lines(X_MARK, VERTICAL_LINE)
+def concat_many_lines(*strings)
+  strings.reduce { |concat, string| concat_lines(concat, string) }
+end
+
+# puts concat_lines(X_MARK, VERTICAL_LINE)
+# puts concat_lines(concat_lines(X_MARK, VERTICAL_LINE), O_MARK)
+puts concat_many_lines(X_MARK, VERTICAL_LINE, O_MARK, VERTICAL_LINE, EMPTY_SQUARE) + HORIZONTAL_LINE + concat_many_lines(O_MARK, VERTICAL_LINE, O_MARK, VERTICAL_LINE, EMPTY_SQUARE) + HORIZONTAL_LINE + concat_many_lines(O_MARK, VERTICAL_LINE, X_MARK, VERTICAL_LINE, X_MARK)
