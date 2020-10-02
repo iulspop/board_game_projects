@@ -44,3 +44,17 @@ O_MARK = <<-MSG
    `.____,'   
               
 MSG
+
+EMPTY_SQUARE = <<-MSG
+              
+              
+              
+              
+              
+              
+              
+MSG
+
+HORIZONTAL_LINE = <<-MSG
+_____________|____________|_______________
+MSG
