@@ -198,13 +198,13 @@ end
 
 def display_score(scores)
   puts '', '==== SCORE ===='
-  puts "Player: #{scores[:human_score]}   " \
-  "Computer: #{scores[:computer_score]}", ''
+  puts "Player: #{scores[:human]}   " \
+  "Computer: #{scores[:computer]}", ''
 end
 
 def update_score(round_winner, scores)
-  scores[:human_score] += 1 if round_winner == 'human'
-  scores[:computer_score] += 1 if round_winner == 'computer'
+  scores[:human] += 1 if round_winner == 'human'
+  scores[:computer] += 1 if round_winner == 'computer'
 end
 
 def display_round_winner(round_winner)
@@ -224,7 +224,7 @@ def win_game?(scores)
 end
 
 def display_game_winner(scores)
-  if scores[:human_score] == WIN_SCORE
+  if scores[:human] == WIN_SCORE
     prompt "You won the game!"
   else
     prompt "You lost the game!"
@@ -250,10 +250,7 @@ end
 welcome
 
 loop do
-  scores = {
-    human_score: 0,
-    computer_score: 0
-  }
+  scores = { human: 0, computer: 0 }
 
   loop do
     board = [
