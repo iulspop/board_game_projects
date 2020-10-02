@@ -83,7 +83,7 @@ def get_human_move(moves)
   loop do
     prompt 'To mark a square, select one of the following:'
     diplay_moves(moves)
-    player_move = gets.chomp
+    player_move = gets.chomp.downcase
 
     break if moves.include?(player_move)
     puts 'Oops, invalid move.'
