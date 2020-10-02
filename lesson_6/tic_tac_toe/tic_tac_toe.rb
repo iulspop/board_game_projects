@@ -53,7 +53,7 @@ def welcome
   any_key_to_continue('Press any key to start playing...')
 end
 
-def asmarker_markers
+def assign_markers
   human_marker = ['X', 'O'].sample
   computer_marker = human_marker == 'X' ? 'O' : 'X'
   { human: human_marker, computer: computer_marker }
@@ -66,7 +66,7 @@ def setup_round
     ['', '', '']
   ],
    VALID_MOVES.dup,
-   asmarker_markers,
+   assign_markers,
    'X',
    nil]
 end
