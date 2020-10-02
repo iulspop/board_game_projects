@@ -56,7 +56,7 @@ end
 def assign_markers
   human_marker = ['X', 'O'].sample
   computer_marker = human_marker == 'X' ? 'O' : 'X'
-  [human_marker, computer_marker]
+  { human: human_marker, computer: computer_marker }
 end
 
 def concat_vertical(string1, string2)
@@ -186,9 +186,9 @@ def tie?(board)
   board.all? { |row| row.all? { |square| square.match?(/X|O/) } }
 end
 
-def get_round_winner(board, human_marker, computer_marker)
-  return 'human' if win_marker(board) == human_marker
-  return 'computer' if win_marker(board) == computer_marker
+def get_round_winner(board, markers)
+  return 'human' if win_marker(board) == markers[:human]
+  return 'computer' if win_marker(board) == markers[:computer]
   return 'tie' if tie?(board)
 end
 
@@ -259,22 +259,21 @@ loop do
       ['', '', '']
     ]
     moves = VALID_MOVES.dup
-    human_marker, computer_marker = assign_markers
+    markers = assign_markers
     initiative = 'X'
     round_winner = nil
 
     loop do
       display_board(board)
 
-      if initiative == human_marker
-        make_a_move("human", human_marker, moves, board)
+      if initiative == markers[:human]
+        make_a_move("human", markers[:human], moves, board)
 
-      elsif initiative == computer_marker
-        make_a_move("computer", computer_marker, moves, board)
+      elsif initiative == markers[:computer]
+        make_a_move("computer", markers[:computer], moves, board)
       end
 
-      round_winner = get_round_winner(board, human_marker, computer_marker)
-      break if round_winner
+      break if round_winner = get_round_winner(board, markers)
       initiative = pass_initiative(initiative)
     end
 
