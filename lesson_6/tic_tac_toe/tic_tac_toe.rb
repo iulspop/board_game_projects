@@ -304,8 +304,9 @@ def win_game?(scores)
 end
 
 def display_game_winner(scores)
-  scores[:human] == WIN_SCORE ? (prompt "You won the game!") :
-                                (prompt "You lost the game!")
+  case WIN_SCORE
+  when scores[:human]    then prompt 'You won the game!', ''
+  when scores[:computer] then prompt 'You lost the game!', '' end
 end
 
 def play_again?
