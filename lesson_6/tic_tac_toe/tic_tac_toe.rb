@@ -185,21 +185,25 @@ def map_to_move(openings)
   openings.map { |opening| OPENING_TO_MOVE[opening] }
 end
 
-def get_computer_move(moves, board, marker)
-  prompt 'It\'s the computers turn.', ''
-  any_key_to_continue 'Press any key for computer mark square...'
+def check_opening(moves, board, marker)
   openings = squares_opening(slices_opening(board_slices(board), marker))
   if openings != []
     moves = map_to_move(openings)
     return moves.sample
   end
-  alt_marker = marker == 'X' ? 'O' : 'X'
-  openings = squares_opening(slices_opening(board_slices(board), alt_marker))
-  if openings != []
-    moves = map_to_move(openings)
-    return moves.sample
-  end
-  moves.values.sample
+  nil
+end
+
+def get_offence_or_defense_move(moves, board, marker)
+  offence = check_opening(moves, board, marker)
+  defence = check_opening(moves, board, marker == 'X' ? 'O' : 'X')
+  offence || defence || moves.values.sample
+end
+
+def get_computer_move(moves, board, marker)
+  prompt 'It\'s the computers turn.', ''
+  any_key_to_continue 'Press any key for computer mark square...'
+  get_offence_or_defense_move(moves, board, marker)
 end
 
 def update_moves!(move, moves)
