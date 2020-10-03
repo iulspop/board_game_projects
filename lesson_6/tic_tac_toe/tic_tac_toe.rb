@@ -271,9 +271,9 @@ def tie?(board)
 end
 
 def get_round_winner(board, markers)
-  return 'human' if win?(board, markers[:human])
+  return 'human'    if win?(board, markers[:human])
   return 'computer' if win?(board, markers[:computer])
-  return 'tie' if tie?(board)
+  return 'tie'      if tie?(board)
 end
 
 def pass_initiative!(initiative)
