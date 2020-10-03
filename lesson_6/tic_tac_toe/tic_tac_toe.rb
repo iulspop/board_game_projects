@@ -136,10 +136,20 @@ def get_human_move(moves)
   player_move
 end
 
-def get_computer_move(moves)
+def get_indexes_of_slice_with_opportunity(slices, marker)
+  indexes = []
+  slices.each_with_index do |slice, index|
+    indexes << index if slice.join.match(/#{marker}{2}/)
+  end
+  indexes
+end
+
+def get_computer_move(moves, board, marker)
   prompt 'It\'s the computers turn.', ''
   any_key_to_continue 'Press any key for computer mark square...'
+  # p get_indexes_of_slice_with_opportunity(board_slices(board), marker)
   moves.keys.sample
+  # [0, 0]
 end
 
 def update_available_moves!(move, moves)
@@ -188,12 +198,12 @@ end
 def board_slices(board)
   [diagonal_slices(board),
    vertical_slices(board),
-   horizontal_slices(board)].each { |slices| slices.map!(&:join) }.flatten
+   horizontal_slices(board)].flatten(1)
 end
 
 def win_marker(board)
-  return 'X' if board_slices(board).any? { |slice| slice.match?(/XXX/) }
-  return 'O' if board_slices(board).any? { |slice| slice.match?(/OOO/) }
+  return 'X' if board_slices(board).any? { |slice| slice.join.match?(/XXX/) }
+  return 'O' if board_slices(board).any? { |slice| slice.join.match?(/OOO/) }
 end
 
 def tie?(board)
