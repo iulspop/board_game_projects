@@ -152,7 +152,9 @@ def update_board!(move, marker, board)
 end
 
 def make_a_move(player, marker, moves, board)
-  move = player == "human" ? get_human_move(moves) : get_computer_move(moves)
+  move = case player
+         when "human"    then get_human_move(moves)
+         when "computer" then get_computer_move(moves, board, marker) end
   update_available_moves!(move, moves)
   update_board!(move, marker, board)
 end
