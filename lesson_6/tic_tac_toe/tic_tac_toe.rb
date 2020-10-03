@@ -197,14 +197,14 @@ def map_to_move(openings)
   openings.map { |opening| OPENING_TO_MOVE[opening] }
 end
 
-def check_opening(_moves, board, marker)
+def get_opening(board, marker)
   openings = squares_opening(slices_opening(board_slices(board), marker))
   openings.empty? ? nil : map_to_move(openings).sample
 end
 
 def get_smart_move(moves, board, marker)
-  offence = check_opening(moves, board, marker)
-  defence = check_opening(moves, board, marker == 'X' ? 'O' : 'X')
+  offence = get_opening(board, marker)
+  defence = get_opening(board, marker == 'X' ? 'O' : 'X')
   offence || defence || moves.values.sample
 end
 
