@@ -130,20 +130,23 @@ def concat_row(first, middle, last)
   concat_many_verticals(first, VERTICAL_LINE, middle, VERTICAL_LINE, last)
 end
 
-def to_ascii(square)
+def to_ascii_sqr(square)
   case square
   when 'X' then X_MARK
   when 'O' then O_MARK
   when ''  then EMPTY_SQUARE end
 end
 
+def to_ascii_board(board)
+  ascii_board = board.map { |row| row.map { |square| to_ascii_sqr(square) } }
+  ascii_board.map do |row|
+    concat_row(row[0], row[1], row[2]) + HORIZONTAL_LINE
+  end
+end
+
 def display_board(board)
   clear_screen
-  ascii_board = board.map { |row| row.map { |square| to_ascii(square) } }
-  ascii_board.each do |row|
-    puts concat_row(row[0], row[1], row[2]) + HORIZONTAL_LINE
-  end
-  puts ''
+  puts to_ascii_board(board), ''
 end
 
 def get_unavailable_moves(available_moves)
