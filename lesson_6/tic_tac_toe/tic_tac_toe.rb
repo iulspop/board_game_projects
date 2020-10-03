@@ -262,9 +262,8 @@ def board_slices(board)
    diagonal_slices(board)].flatten(1)
 end
 
-def win_marker(board)
-  return 'X' if board_slices(board).any? { |slice| slice.join.match?(/XXX/) }
-  return 'O' if board_slices(board).any? { |slice| slice.join.match?(/OOO/) }
+def win?(board, marker)
+  board_slices(board).any? { |slice| slice.join.match?(/#{marker}{3}/) }
 end
 
 def tie?(board)
@@ -272,8 +271,8 @@ def tie?(board)
 end
 
 def get_round_winner(board, markers)
-  return 'human' if win_marker(board) == markers[:human]
-  return 'computer' if win_marker(board) == markers[:computer]
+  return 'human' if win?(board, markers[:human])
+  return 'computer' if win?(board, markers[:computer])
   return 'tie' if tie?(board)
 end
 
