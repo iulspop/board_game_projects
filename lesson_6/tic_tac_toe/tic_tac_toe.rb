@@ -133,7 +133,7 @@ def get_human_move(moves)
     break if moves.include?(player_move)
     puts 'Oops, invalid move.'
   end
-  move = VALID_MOVES[player_move]
+  VALID_MOVES[player_move]
 end
 
 def get_indexes_of_slice_with_opportunity(slices, marker)
