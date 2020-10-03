@@ -82,8 +82,8 @@ end
 
 def welcome
   clear_screen
-  puts 'Welcome to Tic Tac Toe game!', ''
 
+  puts 'Welcome to Tic Tac Toe game!', ''
   prompt RULES_MESSAGE, ''
 
   any_key_to_continue('Press any key to start playing...')
