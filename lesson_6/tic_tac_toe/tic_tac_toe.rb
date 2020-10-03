@@ -36,7 +36,7 @@ def prompt(message, *extra)
 end
 
 def clear_screen
-  system('clear') || system('clr')
+  # system('clear') || system('clr')
 end
 
 def any_key_to_continue(message)
@@ -133,7 +133,7 @@ def get_human_move(moves)
     break if moves.include?(player_move)
     puts 'Oops, invalid move.'
   end
-  player_move
+  move = VALID_MOVES[player_move]
 end
 
 def get_indexes_of_slice_with_opportunity(slices, marker)
@@ -148,8 +148,7 @@ def get_computer_move(moves, board, marker)
   prompt 'It\'s the computers turn.', ''
   any_key_to_continue 'Press any key for computer mark square...'
   # p get_indexes_of_slice_with_opportunity(board_slices(board), marker)
-  moves.keys.sample
-  # [0, 0]
+  moves.values.sample
 end
 
 def update_available_moves!(move, moves)
@@ -157,7 +156,6 @@ def update_available_moves!(move, moves)
 end
 
 def update_board!(move, marker, board)
-  move = VALID_MOVES[move]
   board[move[0]][move[1]] = marker
 end
 
