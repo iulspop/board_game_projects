@@ -31,6 +31,33 @@ a s d
 z x c
 MSG
 
+OPENING_TO_MOVE = {
+  [0, 0] => [0, 0],
+  [0, 1] => [0, 1],
+  [0, 2] => [0, 2],
+  [1, 0] => [1, 0],
+  [1, 1] => [1, 1],
+  [1, 2] => [1, 2],
+  [2, 0] => [2, 0],
+  [2, 1] => [2, 1],
+  [2, 2] => [2, 2],
+  [3, 0] => [0, 0],
+  [3, 1] => [1, 0],
+  [3, 2] => [2, 0],
+  [4, 0] => [0, 1],
+  [4, 1] => [1, 1],
+  [4, 2] => [2, 1],
+  [5, 0] => [0, 2],
+  [5, 1] => [1, 2],
+  [5, 2] => [2, 2],
+  [6, 0] => [0, 0],
+  [6, 1] => [1, 1],
+  [6, 2] => [2, 2],
+  [7, 0] => [0, 2],
+  [7, 1] => [1, 1],
+  [7, 2] => [2, 0],
+}
+
 def prompt(message, *extra)
   puts "==> #{message}", *extra
 end
@@ -154,11 +181,20 @@ def squares_opening(slices_opening)
   opportunities
 end
 
+def map_to_move(openings)
+  openings.map { |opening| OPENING_TO_MOVE[opening] }
+end
+
 def get_computer_move(moves, board, marker)
   prompt 'It\'s the computers turn.', ''
   any_key_to_continue 'Press any key for computer mark square...'
-  p openings = squares_opening(slices_opening(board_slices(board), marker))
-  moves.values.sample
+  openings = squares_opening(slices_opening(board_slices(board), marker))
+  if openings != []
+    moves = map_to_move(openings)
+    moves.sample
+  else
+    moves.values.sample
+  end
 end
 
 def update_moves!(move, moves)
@@ -204,9 +240,9 @@ def diagonal_slices(array)
 end
 
 def board_slices(board)
-  [diagonal_slices(board),
+  [horizontal_slices(board),
    vertical_slices(board),
-   horizontal_slices(board)].flatten(1)
+   diagonal_slices(board)].flatten(1)
 end
 
 def win_marker(board)
