@@ -162,8 +162,9 @@ def diplay_moves(available_moves)
 end
 
 def get_human_move(moves)
-  prompt 'It your turn to mark a space.', ''
   player_move = ''
+
+  prompt 'It your turn to mark a space.', ''
   loop do
     prompt 'To mark a square, select one of the following:'
     diplay_moves(moves)
@@ -172,10 +173,11 @@ def get_human_move(moves)
     break if moves.include?(player_move)
     puts 'Oops, invalid move.'
   end
+
   VALID_MOVES[player_move]
 end
 
-def slices_opening(slices, marker)
+def slices_with_opening(slices, marker)
   slices_with_index = []
   slices.each_with_index do |slice, index|
     slices_with_index << [slice, index] if slice.join.match(/#{marker}{2}/)
@@ -198,7 +200,7 @@ def map_to_move(openings)
 end
 
 def get_opening(board, marker)
-  openings = squares_opening(slices_opening(board_slices(board), marker))
+  openings = squares_opening(slices_with_opening(board_slices(board), marker))
   openings.empty? ? nil : map_to_move(openings).sample
 end
 
