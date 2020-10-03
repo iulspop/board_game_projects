@@ -31,19 +31,19 @@ a s d
 z x c
 MSG
 
-def get_openings
+def compute_openings
   openings = []
   8.times do |slice_index|
-    3.times { |square_index| openings << [slice_index, square_index]}
+    3.times { |square_index| openings << [slice_index, square_index] }
   end
   openings
 end
 
-def get_horizontal_squares
+def horizontal_squares
   VALID_MOVES.dup.values
 end
 
-def get_vertical_squares
+def vertical_squares
   vertical_squares = []
   3.times do |square_index|
     3.times { |row_index| vertical_squares << [row_index, square_index] }
@@ -51,21 +51,21 @@ def get_vertical_squares
   vertical_squares
 end
 
-def get_diagonal_squares
+def diagonal_squares
   [[0, 0], [1, 1], [2, 2], [0, 2], [1, 1], [2, 0]]
 end
 
-def get_moves
-  [get_horizontal_squares,
-   get_vertical_squares,
-   get_diagonal_squares].flatten(1)
+def compute_moves
+  [horizontal_squares,
+   vertical_squares,
+   diagonal_squares].flatten(1)
 end
 
 def map_openings_to_moves(openings, moves)
   openings.each_with_index.map { |opening, index| [opening, moves[index]] }.to_h
 end
 
-OPENING_TO_MOVE = map_openings_to_moves(get_openings, get_moves)
+OPENING_TO_MOVE = map_openings_to_moves(compute_openings, compute_moves)
 
 def prompt(message, *extra)
   puts "==> #{message}", *extra
@@ -194,7 +194,7 @@ def map_to_move(openings)
   openings.map { |opening| OPENING_TO_MOVE[opening] }
 end
 
-def check_opening(moves, board, marker)
+def check_opening(_moves, board, marker)
   openings = squares_opening(slices_opening(board_slices(board), marker))
   openings.empty? ? nil : map_to_move(openings).sample
 end
@@ -212,7 +212,7 @@ def get_computer_move(moves, board, marker)
 end
 
 def update_moves!(move, moves)
-  moves.delete_if { |k, v| v == move }
+  moves.delete_if { |_k, v| v == move }
 end
 
 def update_board!(move, marker, board)
