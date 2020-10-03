@@ -152,7 +152,7 @@ def get_computer_move(moves, board, marker)
 end
 
 def update_available_moves!(move, moves)
-  moves.delete(move)
+  moves.delete_if { |k, v| v == move }
 end
 
 def update_board!(move, marker, board)
