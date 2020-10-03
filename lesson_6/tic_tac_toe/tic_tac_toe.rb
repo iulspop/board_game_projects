@@ -293,10 +293,9 @@ end
 
 def display_round_winner(round_winner)
   case round_winner
-  when 'human'    then prompt 'You won this round!'
-  when 'computer' then prompt 'You lost this round!'
-  when 'tie'      then prompt 'This round is a tie.' end
-  puts ''
+  when 'human'    then prompt 'You won this round!', ''
+  when 'computer' then prompt 'You lost this round!', ''
+  when 'tie'      then prompt 'This round is a tie.', '' end
 end
 
 def win_game?(scores)
