@@ -171,14 +171,14 @@ def slices_opening(slices, marker)
   slices_with_index
 end
 
-def squares_opening(slices_opening)
-  opportunities = []
-  slices_opening.each do |(slice, slice_index)|
+def squares_opening(slices_with_opening)
+  openings = []
+  slices_with_opening.each do |(slice, slice_index)|
     slice.each_with_index do |square, square_index|
-      opportunities << [slice_index, square_index] if square == ''
+      openings << [slice_index, square_index] if square == ''
     end
   end
-  opportunities
+  openings
 end
 
 def map_to_move(openings)
