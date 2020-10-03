@@ -152,7 +152,7 @@ def get_unavailable_moves(available_moves)
   end.join('|')
 end
 
-def diplay_moves(available_moves)
+def display_moves(available_moves)
   unavailable_moves = get_unavailable_moves(available_moves)
   if unavailable_moves == ''
     puts MOVES_DISPLAY
@@ -167,7 +167,7 @@ def get_human_move(moves)
   prompt 'It your turn to mark a space.', ''
   loop do
     prompt 'To mark a square, select one of the following:'
-    diplay_moves(moves)
+    display_moves(moves)
     player_move = gets.chomp.downcase
 
     break if moves.include?(player_move)
