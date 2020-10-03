@@ -348,7 +348,8 @@ loop do
         make_a_move("computer", markers[:computer], moves, board)
       end
 
-      break if round_winner = get_round_winner(board, markers)
+      round_winner = get_round_winner(board, markers)
+      break if round_winner
       pass_initiative!(initiative)
     end
 
