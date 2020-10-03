@@ -136,18 +136,28 @@ def get_human_move(moves)
   VALID_MOVES[player_move]
 end
 
-def get_indexes_of_slice_with_opportunity(slices, marker)
-  indexes = []
+def slices_opening(slices, marker)
+  slices_with_index = []
   slices.each_with_index do |slice, index|
-    indexes << index if slice.join.match(/#{marker}{2}/)
+    slices_with_index << [slice, index] if slice.join.match(/#{marker}{2}/)
   end
-  indexes
+  slices_with_index
+end
+
+def squares_opening(slices_opening)
+  opportunities = []
+  slices_opening.each do |(slice, slice_index)|
+    slice.each_with_index do |square, square_index|
+      opportunities << [slice_index, square_index] if square == ''
+    end
+  end
+  opportunities
 end
 
 def get_computer_move(moves, board, marker)
   prompt 'It\'s the computers turn.', ''
   any_key_to_continue 'Press any key for computer mark square...'
-  # p get_indexes_of_slice_with_opportunity(board_slices(board), marker)
+  p openings = squares_opening(slices_opening(board_slices(board), marker))
   moves.values.sample
 end
 
