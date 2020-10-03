@@ -5,10 +5,13 @@ WIN_SCORE = 3
 
 RULES_MESSAGE = <<-MSG
 The rules are: 
-    Two players, X and O, take turns marking the spaces in a 3×3 grid. 
+    Two players, X and O, take turns marking the spaces in a 3×3 grid.
 
     The player who succeeds in placing three of their marks
     in a horizontal, vertical, or diagonal row wins the round.
+
+    !!!IMPORTANT NOTE!!!
+    THE COMPUTER IS SMART BUT YOU CAN WIN!
 
     The first to win three rounds wins the game!
 MSG
