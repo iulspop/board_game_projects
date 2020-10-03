@@ -63,7 +63,7 @@ def prompt(message, *extra)
 end
 
 def clear_screen
-  # system('clear') || system('clr')
+  system('clear') || system('clr')
 end
 
 def any_key_to_continue(message)
@@ -191,10 +191,15 @@ def get_computer_move(moves, board, marker)
   openings = squares_opening(slices_opening(board_slices(board), marker))
   if openings != []
     moves = map_to_move(openings)
-    moves.sample
-  else
-    moves.values.sample
+    return moves.sample
   end
+  alt_marker = marker == 'X' ? 'O' : 'X'
+  openings = squares_opening(slices_opening(board_slices(board), alt_marker))
+  if openings != []
+    moves = map_to_move(openings)
+    return moves.sample
+  end
+  moves.values.sample
 end
 
 def update_moves!(move, moves)
