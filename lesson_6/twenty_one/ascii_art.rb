@@ -1,6 +1,8 @@
 
 # This program uses Bej's cards
 # https://ascii.co.uk/art/cards
+# In general if you use any part of this file please send me a note to
+# bej@druid.if.uj.edu.pl just for my pleasure.
 CARDS = <<-MSG
 _________________________________________________________________________
 
