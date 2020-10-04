@@ -494,3 +494,5 @@ EMPTY_CARD = <<-MSG
 |         |
  ~~~~~~~~~ 
 MSG
+
+DECK = [CLUBS, DIAMONDS, HEARTS, SPADES]
