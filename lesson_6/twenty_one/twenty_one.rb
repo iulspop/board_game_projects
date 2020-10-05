@@ -15,10 +15,24 @@ def create_deck
   end.flatten(1)
 end
 
+def draw_card(deck, hand)
+  drawn_card = deck.sample
+  hand << drawn_card
+  deck.delete drawn_card
+end
+
+def get_hands(deck)
+  hands = {player: [], dealer: []}
+  2.times do
+    draw_card(deck, hands[:player])
+    draw_card(deck, hands[:dealer])
+  end
+  hands
+end
 
 loop do
   deck = create_deck
-  hands = get_hands
+  hands = get_hands(deck)
   round_winner = nil
 
   break
