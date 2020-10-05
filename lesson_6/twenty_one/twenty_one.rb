@@ -15,6 +15,16 @@ def create_deck
   end.flatten(1)
 end
 
+
+loop do
+  deck = create_deck
+  hands = get_hands
+  round_winner = nil
+
+  break
+end
+
+
 =begin
 welcome
 
