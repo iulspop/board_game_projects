@@ -40,7 +40,7 @@ def calc_aces_value(total, hand)
   value
 end
 
-def calc_hand_value(hand)
+def calc_hand_total(hand)
   total = 0
 
   hand.each do |(value, _)|
@@ -54,11 +54,11 @@ def calc_hand_value(hand)
   total += calc_aces_value(total, hand)
 end
 
-def calc_totals(hands, skip_ace = false)
+def calc_totals(hands)
   totals = { player: 0, dealer: 0 }
 
   hands.each do |participant, hand|
-    totals[participant] = calc_hand_value(hand)
+    totals[participant] = calc_hand_total(hand)
   end
 
   totals
@@ -71,7 +71,7 @@ end
 loop do
   deck = create_deck
   hands = get_hands(deck)
-  p totals = calc_totals({:player=>[["Ace", "Hearts"], ["Queen", "Hearts"], ["Ace", 'por']], :dealer=>[[2, "Diamonds"], ['Ace', "Hearts"], [5, "Hearts"], ['Ace', "Hearts"]]})
+  totals = calc_totals(hands)
   round_winner = nil
 
   # display_hands(hands)
