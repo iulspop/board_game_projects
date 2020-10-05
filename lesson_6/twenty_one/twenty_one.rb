@@ -43,5 +43,16 @@ goodbye
 
 =begin
 DATA STRUCTURES
+deck:
+  array of cards, card is array [value, suit]
+
+hand:
+  array of cards, card is array [value, suit]
+
+draw_card(deck, hand):
+  drawn_card = deck.sample
+  hand << drawn_card
+  deck.delete drawn_card
+
 
 =end
