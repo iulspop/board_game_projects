@@ -30,35 +30,35 @@ def get_hands(deck)
   hands
 end
 
-def calc_ace(total, hand)
-  if total + 11 <= 21
-    11
-  else
-    1
-  end
+def calc_aces_value(total, hand)
+  value = 0
+  aces_count = hand.count { |(value, _)| value == 'Ace' }
+
+  value += aces_count * 11
+  aces_count.times { value -= 10 if total + value > 21 }
+
+  value
 end
 
-def calc_hand(hand)
+def calc_hand_value(hand)
   total = 0
 
   hand.each do |(value, _)|
-    if "Ace" == value
-      total += calc_ace(total, hand)
-    elsif %w[King Queen Jack].include? value
+    if %w[King Queen Jack].include? value
       total += 10
     elsif value.is_a? Integer
       total += value
     end
   end
 
-  total
+  total += calc_aces_value(total, hand)
 end
 
 def calc_totals(hands, skip_ace = false)
   totals = { player: 0, dealer: 0 }
 
   hands.each do |participant, hand|
-    totals[participant] = calc_hand(hand)
+    totals[participant] = calc_hand_value(hand)
   end
 
   totals
