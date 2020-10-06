@@ -46,10 +46,10 @@ def draw_card(deck, hand)
 end
 
 def get_hands(deck)
-  hands = { player: [], dealer: [] }
+  hands = { dealer: [], player: [] }
   2.times do
-    draw_card(deck, hands[:player])
     draw_card(deck, hands[:dealer])
+    draw_card(deck, hands[:player])
   end
   hands
 end
@@ -79,7 +79,7 @@ def calc_hand_total(hand)
 end
 
 def calc_totals(hands)
-  totals = { player: 0, dealer: 0 }
+  totals = { dealer: 0, player: 0 }
 
   hands.each do |participant, hand|
     totals[participant] = calc_hand_total(hand)
