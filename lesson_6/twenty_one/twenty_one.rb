@@ -120,30 +120,38 @@ def to_ascii_card((value, suit))
   DECK[suit][get_card_index(value)]
 end
 
-def to_ascii_hand(hand)
-  ascii_hand = hand.map { |card| to_ascii_card(card) }
+def to_ascii_hand(hand, hide_card = false)
+  ascii_hand = hand.map.with_index do |card, index|
+    if index == hand.length - 1 && hide_card then MYSTERY_CARD
+    else to_ascii_card(card) end
+  end
   concat_hand(ascii_hand)
 end
 
-def values_and_total(hand, total)
+def values_and_total(hand, total, hide_value = false)
   values = ''
   hand.each_with_index do |card, index|
-    values << card[0].to_s.center(11)
-    values << '  +  ' if index != hand.length - 1
+    if index == hand.length - 1 && hide_value
+      return values << '?'.center(11) + ' =   ?'
+    else
+      values << card[0].to_s.center(11)
+      values << '  +  ' if index != hand.length - 1
+    end
   end
   values + ' =   ' + total.to_s
 end
 
-def display_hand(participant, hand, total)
+def display_hand(participant, hand, total, reveal)
+  hide = participant == :dealer && reveal == false ? true : false
   puts "====== #{participant.upcase}'S HAND ======"
-  puts to_ascii_hand(hand), ''
-  puts values_and_total(hand, total), '', ''
+  puts to_ascii_hand(hand, hide), ''
+  puts values_and_total(hand, total, hide), '', ''
 end
 
-def display_hands(hands, totals)
+def display_hands(hands, totals, reveal = false)
   clear_screen
   hands.each do |participant, hand|
-    display_hand(participant, hand, totals[participant])
+    display_hand(participant, hand, totals[participant], reveal)
   end
 end
 
