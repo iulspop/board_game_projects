@@ -114,6 +114,12 @@ def calc_totals(hands)
   totals
 end
 
+def setup_round
+  deck = create_deck
+  hands = get_hands(deck)
+  [deck, hands, calc_totals(hands), nil]
+end
+
 def concat_card(card1, card2)
   lines1 = card1.split("\n")
   lines2 = card2.split("\n")
@@ -259,10 +265,7 @@ loop do
   scores = { player: 0, dealer: 0 }
 
   loop do
-    deck = create_deck
-    hands = get_hands(deck)
-    totals = calc_totals(hands)
-    round_winner = nil
+    deck, hands, totals, round_winner = setup_round
 
     loop do
       display_hands(hands, totals)
