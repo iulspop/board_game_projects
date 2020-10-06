@@ -21,6 +21,11 @@ Then dealer plays. Finally, the round winner is determined.
 THE FIRST TO WIN FIVE ROUNDS WINS THE GAME!
 MSG
 
+BEJ_MESSAGE = <<-MSG
+# This program uses Bej's cards
+# https://ascii.co.uk/art/cards
+MSG
+
 SUITS = ['Hearts', 'Diamonds', 'Clubs', 'Spades']
 
 def prompt(message, *extra)
@@ -41,7 +46,7 @@ def welcome
 
   puts 'Let\'s play Twenty One!', ''
   prompt RULES_MESSAGE, ''
-
+  puts BEJ_MESSAGE, ''
   any_key_to_continue('Press any key to start playing...')
 end
 
