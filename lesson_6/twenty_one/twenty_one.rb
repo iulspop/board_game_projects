@@ -16,7 +16,7 @@ The player goes first, and can decide to either "hit" or "stay".
 A hit means the player will ask for another card.
 A stay means the turn passes to the dealer.
 
-The dealer plays, then the round winner is determined.
+Then dealer plays. Finally, the round winner is determined.
 
 THE FIRST TO WIN FIVE ROUNDS WINS THE GAME!
 MSG
