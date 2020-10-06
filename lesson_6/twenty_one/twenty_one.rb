@@ -155,6 +155,26 @@ def display_hands(hands, totals, reveal = false)
   end
 end
 
+def hit_or_stay?
+  choice = ''
+
+  prompt "It's your turn."
+  loop do
+    prompt 'Hit or Stay? (h or s)'
+    choice = gets.chomp.downcase
+
+    break if %w[h s hit stay].include?(choice)
+    puts 'Oops, invalid move.'
+  end
+
+  choice.chr
+end
+
+def dealer_hit_or_stay?(total)
+  if total < 17 then 'h'
+  else 's' end
+end
+
 def display_score(scores)
   puts '', '==== SCORE ===='
   puts "Player: #{scores[:human]}   " \
@@ -207,8 +227,24 @@ loop do
 
   loop do
     display_hands(hands, totals)
-    break
+    if 'h' == hit_or_stay?
+      draw_card(deck, hands[:player])
+      totals = calc_totals(hands)
+      break round_winner = 'dealer' if totals[:player] > 21
+      next
+    else break end
   end
+  break if round_winner
+
+  loop do
+    if 'h' == dealer_hit_or_stay?(totals[:dealer])
+      draw_card(deck, hands[:dealer])
+      totals = calc_totals(hands)
+      break round_winner = 'player' if totals[:player] > 21
+      next
+    else break end
+  end
+  break if round_winner
 
   break
 end
