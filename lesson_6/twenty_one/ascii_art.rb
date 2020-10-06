@@ -495,4 +495,16 @@ EMPTY_CARD = <<-MSG
  ~~~~~~~~~ 
 MSG
 
+EMPTY_SPACE = <<-MSG
+           
+           
+           
+           
+           
+           
+           
+           
+           
+MSG
+
 DECK = [HEARTS, DIAMONDS, CLUBS, SPADES]

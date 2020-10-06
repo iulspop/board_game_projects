@@ -1,5 +1,27 @@
 SUITS = ['Hearts', 'Diamonds', 'Clubs', 'Spades']
 
+def prompt(message, *extra)
+  puts "==> #{message}", *extra
+end
+
+def clear_screen
+  system('clear') || system('clr')
+end
+
+def any_key_to_continue(message)
+  prompt message
+  STDIN.getch
+end
+
+def welcome
+  clear_screen
+
+  puts 'Welcome to Tic Tac Toe game!', ''
+  prompt RULES_MESSAGE, ''
+
+  any_key_to_continue('Press any key to start playing...')
+end
+
 def create_deck
   SUITS.each_with_object([]) do |suit_name, deck|
     deck << 13.times.each_with_object([]) do |card_index, suit|
@@ -64,9 +86,47 @@ def calc_totals(hands)
   totals
 end
 
-# def display_hands(hands)
+def concat_vertical(string1, string2)
+  lines1 = string1.split("\n")
+  lines2 = string2.split("\n")
+  concat_lines = []
 
-# end
+  lines1.each_with_index do |line, index|
+    concat_lines << line + lines2[index]
+  end
+
+  concat_lines.join("\n")
+end
+
+def concat_many_verticals(*strings)
+  strings.reduce { |concat, string| concat_vertical(concat, string) }
+end
+
+def concat_row(first, middle, last)
+  concat_many_verticals(first, VERTICAL_LINE, middle, VERTICAL_LINE, last)
+end
+
+def to_ascii_sqr(square)
+  case square
+  when 'X' then X_MARK
+  when 'O' then O_MARK
+  when ''  then EMPTY_SQUARE end
+end
+
+def to_ascii_board(board)
+  ascii_board = board.map { |row| row.map { |square| to_ascii_sqr(square) } }
+  ascii_board.map do |row|
+    concat_row(row[0], row[1], row[2]) + HORIZONTAL_LINE
+  end
+end
+
+def display_hands(hands, totals)
+  clear_screen
+  hands.each do |participant, hand|
+    puts to_ascii_hand(hand), ''
+    puts totals[participant]
+  end
+end
 
 loop do
   deck = create_deck
@@ -74,7 +134,7 @@ loop do
   totals = calc_totals(hands)
   round_winner = nil
 
-  # display_hands(hands)
+  display_hands(hands)
   break
 end
 
