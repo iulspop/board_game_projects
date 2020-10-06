@@ -125,11 +125,21 @@ def to_ascii_hand(hand)
   concat_hand(ascii_hand)
 end
 
+def values_and_total(hand, total)
+  values = ''
+  hand.each_with_index do |card, index|
+    values << card[0].to_s.center(11)
+    values << '  +  ' if index != hand.length - 1
+  end
+  values + ' =   ' + total.to_s
+end
+
 def display_hands(hands, totals)
   clear_screen
   hands.each do |participant, hand|
+    puts "====== #{participant.upcase}'S HAND ======"
     puts to_ascii_hand(hand), ''
-    puts totals[participant]
+    puts values_and_total(hand, totals[participant]), '', ''
   end
 end
 
