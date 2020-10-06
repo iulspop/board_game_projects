@@ -292,7 +292,7 @@ def display_score(scores)
 end
 
 def update_score(round_winner, scores)
-  scores[:human] += 1 if round_winner == 'human'
+  scores[:human]    += 1 if round_winner == 'human'
   scores[:computer] += 1 if round_winner == 'computer'
 end
 
