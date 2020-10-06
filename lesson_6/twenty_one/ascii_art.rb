@@ -496,15 +496,20 @@ EMPTY_CARD = <<-MSG
 MSG
 
 EMPTY_SPACE = <<-MSG
-           
-           
-           
-           
-           
-           
-           
-           
-           
+    
+    
+    
+    
+    
+    
+    
+    
+    
 MSG
 
-DECK = [HEARTS, DIAMONDS, CLUBS, SPADES]
+DECK = {
+  'Hearts'   => HEARTS,
+  'Diamonds' => DIAMONDS,
+  'Clubs'    => CLUBS,
+  'Spades'   => SPADES
+}

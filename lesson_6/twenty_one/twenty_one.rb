@@ -1,3 +1,5 @@
+load 'ascii_art.rb'
+
 SUITS = ['Hearts', 'Diamonds', 'Clubs', 'Spades']
 
 def prompt(message, *extra)
@@ -86,38 +88,41 @@ def calc_totals(hands)
   totals
 end
 
-def concat_vertical(string1, string2)
-  lines1 = string1.split("\n")
-  lines2 = string2.split("\n")
+def concat_card(card1, card2)
+  lines1 = card1.split("\n")
+  lines2 = card2.split("\n")
+  lines3 = EMPTY_SPACE.split("\n")
   concat_lines = []
 
   lines1.each_with_index do |line, index|
-    concat_lines << line + lines2[index]
+    concat_lines << line + lines3[index] + lines2[index]
   end
 
   concat_lines.join("\n")
 end
 
-def concat_many_verticals(*strings)
-  strings.reduce { |concat, string| concat_vertical(concat, string) }
+def concat_hand(hand)
+  hand.reduce { |concat, card| concat_card(concat, card) }
 end
 
-def concat_row(first, middle, last)
-  concat_many_verticals(first, VERTICAL_LINE, middle, VERTICAL_LINE, last)
-end
-
-def to_ascii_sqr(square)
-  case square
-  when 'X' then X_MARK
-  when 'O' then O_MARK
-  when ''  then EMPTY_SQUARE end
-end
-
-def to_ascii_board(board)
-  ascii_board = board.map { |row| row.map { |square| to_ascii_sqr(square) } }
-  ascii_board.map do |row|
-    concat_row(row[0], row[1], row[2]) + HORIZONTAL_LINE
+def get_card_index(value)
+  case value
+  when "Ace"   then 12
+  when "King"  then 11
+  when "Queen" then 10
+  when "Jack"  then 9
+  else
+    if value.is_a? Integer then value - 2 end
   end
+end
+
+def to_ascii_card((value, suit))
+  DECK[suit][get_card_index(value)]
+end
+
+def to_ascii_hand(hand)
+  ascii_hand = hand.map { |card| to_ascii_card(card) }
+  concat_hand(ascii_hand)
 end
 
 def display_hands(hands, totals)
@@ -134,7 +139,7 @@ loop do
   totals = calc_totals(hands)
   round_winner = nil
 
-  display_hands(hands)
+  display_hands(hands, totals)
   break
 end
 
