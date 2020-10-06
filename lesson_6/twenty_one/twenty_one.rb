@@ -1,4 +1,25 @@
+require 'io/console'
 load 'ascii_art.rb'
+
+WIN_SCORE = 5
+
+RULES_MESSAGE = <<-MSG
+GAME RULES:
+There's a dealer and you, the player.
+Both participants are initially dealt 2 cards.
+The player can see their 2 cards, but can only see one of the dealer's cards.
+
+The goal of Twenty-One is to try to get as close to 21 as possible,
+without going over. If you go over 21, it's a "bust" and you lose.
+
+The player goes first, and can decide to either "hit" or "stay".
+A hit means the player will ask for another card.
+A stay means the turn passes to the dealer.
+
+The dealer plays, then the round winner is determined.
+
+THE FIRST TO WIN FIVE ROUNDS WINS THE GAME!
+MSG
 
 SUITS = ['Hearts', 'Diamonds', 'Clubs', 'Spades']
 
@@ -18,7 +39,7 @@ end
 def welcome
   clear_screen
 
-  puts 'Welcome to Tic Tac Toe game!', ''
+  puts 'Let\'s play Twenty One!', ''
   prompt RULES_MESSAGE, ''
 
   any_key_to_continue('Press any key to start playing...')
@@ -176,21 +197,29 @@ def dealer_hit_or_stay?(total)
 end
 
 def display_score(scores)
-  puts '', '==== SCORE ===='
-  puts "Player: #{scores[:human]}   " \
-       "Computer: #{scores[:computer]}", ''
+  puts '===== SCORE ====='
+  puts "Player: #{scores[:player]}   " \
+       "Dealer: #{scores[:dealer]}", ''
 end
 
-def update_score(round_winner, scores)
-  scores[:human] += 1 if round_winner == 'human'
-  scores[:computer] += 1 if round_winner == 'computer'
+def update_score!(round_winner, scores)
+  scores[:player] += 1 if round_winner == 'player'
+  scores[:dealer] += 1 if round_winner == 'dealer'
+end
+
+def calc_round_winner(totals)
+  if totals[:player] > totals[:dealer]
+    'player'
+  elsif totals[:player] < totals[:dealer]
+    'dealer'
+  else 'tie' end
 end
 
 def display_round_winner(round_winner)
   case round_winner
-  when 'human'    then prompt 'You won this round!', ''
-  when 'computer' then prompt 'You lost this round!', ''
-  when 'tie'      then prompt 'This round is a tie.', '' end
+  when 'player'    then prompt 'You won this round!', ''
+  when 'dealer'  then prompt 'You lost this round!', ''
+  when 'tie'       then prompt 'This round is a tie.', '' end
 end
 
 def win_game?(scores)
@@ -199,8 +228,8 @@ end
 
 def display_game_winner(scores)
   case WIN_SCORE
-  when scores[:human]    then prompt 'You won the game!', ''
-  when scores[:computer] then prompt 'You lost the game!', '' end
+  when scores[:player] then prompt 'You won the game!', ''
+  when scores[:dealer] then prompt 'You lost the game!', '' end
 end
 
 def play_again?
@@ -219,90 +248,51 @@ def goodbye
   puts 'Thank you for playing. Good bye!'
 end
 
-loop do
-  deck = create_deck
-  hands = get_hands(deck)
-  totals = calc_totals(hands)
-  round_winner = nil
-
-  loop do
-    display_hands(hands, totals)
-    if 'h' == hit_or_stay?
-      draw_card(deck, hands[:player])
-      totals = calc_totals(hands)
-      break round_winner = 'dealer' if totals[:player] > 21
-      next
-    else break end
-  end
-  break if round_winner
-
-  loop do
-    if 'h' == dealer_hit_or_stay?(totals[:dealer])
-      draw_card(deck, hands[:dealer])
-      totals = calc_totals(hands)
-      break round_winner = 'player' if totals[:player] > 21
-      next
-    else break end
-  end
-  break if round_winner
-
-  break
-end
-
-
-=begin
 welcome
 
-game start
-  scores = { ... }
+loop do
+  scores = { player: 0, dealer: 0 }
 
-  round start
-    create deck
-    give hand to player and dealer
-    hand_total = calculate_hand_total
+  loop do
+    deck = create_deck
+    hands = get_hands(deck)
+    totals = calc_totals(hands)
     round_winner = nil
 
-    player start
-      display hands_with_total
-      offer player choice, "hit" or 'stay'
-      if "hit"
-        add card to hand
-        if hand is bust break
+    loop do
+      display_hands(hands, totals)
+      if 'h' == hit_or_stay?
+        draw_card(deck, hands[:player])
+        totals = calc_totals(hands)
+        break round_winner = 'dealer' if totals[:player] > 21
         next
-      if 'stay' break
-    player end
-
-    if bust break
-    dealer_plays
-      if bust break
+      else break end
     end
 
-    calculate_hands
-    determine_winner
+    unless round_winner
+      loop do
+        if 'h' == dealer_hit_or_stay?(totals[:dealer])
+          draw_card(deck, hands[:dealer])
+          totals = calc_totals(hands)
+          break round_winner = 'player' if totals[:dealer] > 21
+          next
+        else break end
+      end
+    end
 
-    display_hand(hands, reveal = true)
-    update_score!(winner)
+    display_hands(hands, totals, true)
+
+    round_winner ||= calc_round_winner(totals)
+    update_score!(round_winner, scores)
     display_score(scores)
-    break if win_game?
+
+    break if win_game?(scores)
     display_round_winner(round_winner)
-  round end
+    any_key_to_continue('Press any key to start next round...')
+  end
 
   display_game_winner(scores)
-game end
+  break unless play_again?
+end
 
 goodbye
-=end
-
-=begin
-DATA STRUCTURES
-deck:
-  array of cards, card is array [value, suit]
-
-hand:
-  array of cards, card is array [value, suit]
-
-draw_card(deck, hand):
-  drawn_card = deck.sample
-  hand << drawn_card
-  deck.delete drawn_card
-=end
