@@ -134,12 +134,16 @@ def values_and_total(hand, total)
   values + ' =   ' + total.to_s
 end
 
+def display_hand(participant, hand, total)
+  puts "====== #{participant.upcase}'S HAND ======"
+  puts to_ascii_hand(hand), ''
+  puts values_and_total(hand, total), '', ''
+end
+
 def display_hands(hands, totals)
   clear_screen
   hands.each do |participant, hand|
-    puts "====== #{participant.upcase}'S HAND ======"
-    puts to_ascii_hand(hand), ''
-    puts values_and_total(hand, totals[participant]), '', ''
+    display_hand(participant, hand, totals[participant])
   end
 end
 
