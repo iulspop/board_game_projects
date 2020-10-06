@@ -155,13 +155,61 @@ def display_hands(hands, totals, reveal = false)
   end
 end
 
+def display_score(scores)
+  puts '', '==== SCORE ===='
+  puts "Player: #{scores[:human]}   " \
+       "Computer: #{scores[:computer]}", ''
+end
+
+def update_score(round_winner, scores)
+  scores[:human] += 1 if round_winner == 'human'
+  scores[:computer] += 1 if round_winner == 'computer'
+end
+
+def display_round_winner(round_winner)
+  case round_winner
+  when 'human'    then prompt 'You won this round!', ''
+  when 'computer' then prompt 'You lost this round!', ''
+  when 'tie'      then prompt 'This round is a tie.', '' end
+end
+
+def win_game?(scores)
+  scores.values.include?(WIN_SCORE)
+end
+
+def display_game_winner(scores)
+  case WIN_SCORE
+  when scores[:human]    then prompt 'You won the game!', ''
+  when scores[:computer] then prompt 'You lost the game!', '' end
+end
+
+def play_again?
+  loop do
+    prompt 'Play again?'
+    answer = gets.chomp.downcase
+    return true  if ['yes', 'y'].include?(answer)
+    return false if ['no', 'n'].include?(answer)
+    clear_screen
+    puts 'Oops. Please enter Yes or No.'
+  end
+end
+
+def goodbye
+  clear_screen
+  puts 'Thank you for playing. Good bye!'
+end
+
 loop do
   deck = create_deck
   hands = get_hands(deck)
   totals = calc_totals(hands)
   round_winner = nil
 
-  display_hands(hands, totals)
+  loop do
+    display_hands(hands, totals)
+    break
+  end
+
   break
 end
 
