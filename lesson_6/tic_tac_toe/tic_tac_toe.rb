@@ -28,12 +28,6 @@ VALID_MOVES = {
   'c' => [2, 2]
 }
 
-MOVES_DISPLAY = <<-MSG
-q w e
-a s d
-z x c
-MSG
-
 def compute_openings
   openings = []
   8.times do |slice_index|
@@ -149,19 +143,13 @@ def display_board(board)
   puts to_ascii_board(board), ''
 end
 
-def get_unavailable_moves(available_moves)
-  VALID_MOVES.keys.select do |move|
-    !available_moves.keys.include?(move)
-  end.join('|')
-end
-
-def display_moves(available_moves)
-  unavailable_moves = get_unavailable_moves(available_moves)
-  if unavailable_moves == ''
-    puts MOVES_DISPLAY
-  else
-    puts MOVES_DISPLAY.gsub(/#{unavailable_moves}/, " ")
+def display_moves(moves)
+  display = ''
+  VALID_MOVES.keys.each_with_index do |(move, _), index|
+    display << move + ' ' if moves.include?(move)
+    display << "\n" if (index + 1) % 3 == 0
   end
+  puts display
 end
 
 def get_human_move(moves)
