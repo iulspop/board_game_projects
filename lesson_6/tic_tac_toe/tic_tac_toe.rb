@@ -146,7 +146,7 @@ end
 def display_moves(moves)
   display = ''
   VALID_MOVES.keys.each_with_index do |(move, _), index|
-    display << move + ' ' if moves.include?(move)
+    display << (moves.include?(move) ? move + ' ' : '  ')
     display << "\n" if (index + 1) % 3 == 0
   end
   puts display
