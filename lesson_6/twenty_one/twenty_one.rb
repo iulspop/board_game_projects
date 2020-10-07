@@ -72,7 +72,7 @@ end
 def calc_aces_value(total, hand)
   value = 0
 
-  aces_count = hand.count { |(value, _)| value == 'Ace' }
+  aces_count = hand.count { |(name, _)| name == 'Ace' }
   value += aces_count * 11
   aces_count.times { value -= 10 if total + value > 21 }
 
@@ -106,7 +106,7 @@ end
 def setup_round
   deck = create_deck
   hands = get_hands(deck)
-  [deck, hands, calc_totals(hands), nil]
+  [deck, hands, calc_totals(hands)]
 end
 
 def concat_card(card1, card2)
@@ -269,7 +269,7 @@ loop do
   scores = { player: 0, dealer: 0 }
 
   loop do
-    deck, hands, totals, round_winner = setup_round
+    deck, hands, totals = setup_round
 
     round_winner = play_turn(:player, deck, hands, totals)
     round_winner ||= play_turn(:dealer, deck, hands, totals)
