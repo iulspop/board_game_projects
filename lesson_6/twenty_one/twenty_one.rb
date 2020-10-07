@@ -2,6 +2,8 @@ require 'io/console'
 load 'ascii_art.rb'
 
 WIN_SCORE = 5
+MAX_TOTAL = 21
+DEALER_HIT = 17
 
 RULES_MESSAGE = <<-MSG
 GAME RULES:
@@ -9,8 +11,8 @@ There's a dealer and you, the player.
 Both participants are initially dealt 2 cards.
 The player can see their 2 cards, but can only see one of the dealer's cards.
 
-The goal of Twenty-One is to try to get as close to 21 as possible,
-without going over. If you go over 21, it's a "bust" and you lose.
+The goal of #{MAX_TOTAL} is to try to get as close to #{MAX_TOTAL} as possible,
+without going over. If you go over #{MAX_TOTAL}, it's a "bust" and you lose.
 
 The player goes first, and can decide to either "hit" or "stay".
 A hit means the player will ask for another card.
@@ -45,7 +47,7 @@ end
 def welcome
   clear_screen
 
-  puts 'Let\'s play Twenty One!', ''
+  puts "Let\'s play #{MAX_TOTAL}!", ''
   prompt RULES_MESSAGE, ''
   puts BEJ_MESSAGE, ''
 
@@ -74,7 +76,7 @@ def calc_aces_value(total, hand)
 
   aces_count = hand.count { |(name, _)| name == 'Ace' }
   value += aces_count * 11
-  aces_count.times { value -= 10 if total + value > 21 }
+  aces_count.times { value -= 10 if total + value > MAX_TOTAL }
 
   value
 end
@@ -180,7 +182,7 @@ def hit_or_stay?
 end
 
 def dealer_hit_or_stay?(total)
-  total < 17 ? 'h' : 's'
+  total < DEALER_HIT ? 'h' : 's'
 end
 
 def get_choice(player, hands, totals)
@@ -204,7 +206,7 @@ def play_turn(player, deck, hands, totals)
     if choice == 'h'
       draw_card(deck, hands[player])
       update_totals!(hands, totals)
-      return round_winner if totals[player] > 21
+      return round_winner if totals[player] > MAX_TOTAL
     else
       break
     end
