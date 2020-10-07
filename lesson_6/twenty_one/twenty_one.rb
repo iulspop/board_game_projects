@@ -48,6 +48,7 @@ def welcome
   puts 'Let\'s play Twenty One!', ''
   prompt RULES_MESSAGE, ''
   puts BEJ_MESSAGE, ''
+
   any_key_to_continue('Press any key to start playing...')
 end
 
