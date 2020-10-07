@@ -83,7 +83,7 @@ def calc_hand_total(hand)
   total = 0
 
   hand.each do |(value, _)|
-    if %w[King Queen Jack].include? value
+    if %w(King Queen Jack).include? value
       total += 10
     elsif value.is_a? Integer
       total += value
@@ -172,7 +172,7 @@ def hit_or_stay?
     prompt 'Hit or Stay? (h or s)'
     choice = gets.chomp.downcase
 
-    break if %w[h s hit stay].include?(choice)
+    break if %w(h s hit stay).include?(choice)
     puts 'Oops, invalid move.'
   end
 
