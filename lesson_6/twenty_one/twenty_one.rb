@@ -183,6 +183,15 @@ def dealer_hit_or_stay?(total)
   total < 17 ? 'h' : 's'
 end
 
+def get_choice(player, hands, totals)
+  if player == :player
+    display_hands(hands, totals)
+    [hit_or_stay?, 'dealer']
+  else
+    [dealer_hit_or_stay?(totals[player]), 'player']
+  end
+end
+
 def update_totals!(hands, totals)
   new_totals = calc_totals(hands)
   new_totals.each { |participant, total| totals[participant] = total }
@@ -190,12 +199,7 @@ end
 
 def play_turn(player, deck, hands, totals)
   loop do
-    choice, round_winner = if player == :player
-      display_hands(hands, totals)
-      [hit_or_stay?, 'dealer']
-    else
-      [dealer_hit_or_stay?(totals[player]), 'player']
-    end
+    choice, round_winner = get_choice(player, hands, totals)
 
     if choice == 'h'
       draw_card(deck, hands[player])
