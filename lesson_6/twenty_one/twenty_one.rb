@@ -127,14 +127,7 @@ def concat_hand(hand)
 end
 
 def get_card_index(value)
-  case value
-  when "Ace"   then 12
-  when "King"  then 11
-  when "Queen" then 10
-  when "Jack"  then 9
-  else
-    if value.is_a? Integer then value - 2 end
-  end
+  CARDS.index value
 end
 
 def to_ascii_card((value, suit))
