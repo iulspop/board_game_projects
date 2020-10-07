@@ -190,18 +190,20 @@ end
 
 def play_turn(player, deck, hands, totals)
   loop do
-    choice = ''
-    if player == :player
+    choice, round_winner = if player == :player
       display_hands(hands, totals)
-      choice = hit_or_stay?
+      [hit_or_stay?, 'dealer']
     else
-      choice = dealer_hit_or_stay?(totals[player])
+      [dealer_hit_or_stay?(totals[player]), 'player']
     end
+
     if choice == 'h'
       draw_card(deck, hands[player])
       update_totals!(hands, totals)
-      return (player == :player ? 'dealer' : 'player') if totals[player] > 21
-    else break end
+      return round_winner if totals[player] > 21
+    else
+      break
+    end
   end
 end
 
