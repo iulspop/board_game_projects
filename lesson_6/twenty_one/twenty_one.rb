@@ -188,7 +188,7 @@ def update_totals!(hands, totals)
   new_totals.each { |participant, total| totals[participant] = total }
 end
 
-def play_round(player, deck, hands, totals)
+def play_turn(player, deck, hands, totals)
   loop do
     player == :player ? display_hands(hands, totals) : nil
     if 'h' == (player == :player ? hit_or_stay? : dealer_hit_or_stay?(totals[player]))
@@ -260,8 +260,8 @@ loop do
   loop do
     deck, hands, totals, round_winner = setup_round
 
-    round_winner = play_round(:player, deck, hands, totals)
-    play_round(:dealer, deck, hands, totals) unless round_winner
+    round_winner = play_turn(:player, deck, hands, totals)
+    play_turn(:dealer, deck, hands, totals) unless round_winner
 
     display_hands(hands, totals, true)
 
