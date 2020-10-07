@@ -110,16 +110,11 @@ def setup_round
 end
 
 def concat_card(card1, card2)
-  lines1 = card1.split("\n")
-  lines2 = card2.split("\n")
-  empty_lines = EMPTY_SPACE.split("\n")
-  concat_lines = []
+  lines = card1.split("\n").zip(EMPTY_SPACE.split("\n"), card2.split("\n"))
 
-  lines1.each_with_index do |line, index|
-    concat_lines << line + empty_lines[index] + lines2[index]
-  end
-
-  concat_lines.join("\n")
+  lines.map do |(line, empty_line, line2)|
+    line + empty_line + line2
+  end.join("\n")
 end
 
 def concat_hand(hand)
