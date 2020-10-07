@@ -139,11 +139,11 @@ end
 
 def values_and_total(hand, total, hide_value = false)
   values = ''
-  hand.each_with_index do |card, index|
+  hand.each_with_index do |(value, _), index|
     if index == hand.length - 1 && hide_value
       return values << '?'.center(11) + ' =   ?'
     else
-      values << card[0].to_s.center(11)
+      values << value.to_s.center(11)
       values << '  +  ' if index != hand.length - 1
     end
   end
