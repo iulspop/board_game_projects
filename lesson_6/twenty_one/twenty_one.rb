@@ -71,8 +71,8 @@ end
 
 def calc_aces_value(total, hand)
   value = 0
-  aces_count = hand.count { |(value, _)| value == 'Ace' }
 
+  aces_count = hand.count { |(value, _)| value == 'Ace' }
   value += aces_count * 11
   aces_count.times { value -= 10 if total + value > 21 }
 
