@@ -180,8 +180,7 @@ def hit_or_stay?
 end
 
 def dealer_hit_or_stay?(total)
-  if total < 17 then 'h'
-  else 's' end
+  total < 17 ? 'h' : 's'
 end
 
 def display_score(scores)
