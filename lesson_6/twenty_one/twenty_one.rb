@@ -57,9 +57,7 @@ def create_deck
 end
 
 def draw_card(deck, hand)
-  drawn_card = deck.sample
-  hand << drawn_card
-  deck.delete drawn_card
+  hand << deck.pop
 end
 
 def get_hands(deck)
