@@ -272,7 +272,7 @@ loop do
     deck, hands, totals, round_winner = setup_round
 
     round_winner = play_turn(:player, deck, hands, totals)
-    (round_winner = play_turn(:dealer, deck, hands, totals)) unless round_winner
+    round_winner ||= play_turn(:dealer, deck, hands, totals)
     display_hands(hands, totals, true)
 
     round_winner ||= calc_round_winner(totals)
