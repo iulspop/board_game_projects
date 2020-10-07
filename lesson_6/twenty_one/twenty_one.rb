@@ -183,6 +183,23 @@ def dealer_hit_or_stay?(total)
   total < 17 ? 'h' : 's'
 end
 
+def update_totals!(hands, totals)
+  new_totals = calc_totals(hands)
+  new_totals.each { |participant, total| totals[participant] = total }
+end
+
+def play_round(player, deck, hands, totals)
+  loop do
+    player == :player ? display_hands(hands, totals) : nil
+    if 'h' == (player == :player ? hit_or_stay? : dealer_hit_or_stay?(totals[player]))
+      draw_card(deck, hands[player])
+      update_totals!(hands, totals)
+      break player == :player ? 'dealer' : 'player' if totals[player] > 21
+      next
+    else break end
+  end
+end
+
 def display_score(scores)
   puts '===== SCORE ====='
   puts "Player: #{scores[:player]}   " \
@@ -243,26 +260,8 @@ loop do
   loop do
     deck, hands, totals, round_winner = setup_round
 
-    loop do
-      display_hands(hands, totals)
-      if 'h' == hit_or_stay?
-        draw_card(deck, hands[:player])
-        totals = calc_totals(hands)
-        break round_winner = 'dealer' if totals[:player] > 21
-        next
-      else break end
-    end
-
-    unless round_winner
-      loop do
-        if 'h' == dealer_hit_or_stay?(totals[:dealer])
-          draw_card(deck, hands[:dealer])
-          totals = calc_totals(hands)
-          break round_winner = 'player' if totals[:dealer] > 21
-          next
-        else break end
-      end
-    end
+    round_winner = play_round(:player, deck, hands, totals)
+    play_round(:dealer, deck, hands, totals) unless round_winner
 
     display_hands(hands, totals, true)
 
