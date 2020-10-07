@@ -112,11 +112,11 @@ end
 def concat_card(card1, card2)
   lines1 = card1.split("\n")
   lines2 = card2.split("\n")
-  lines3 = EMPTY_SPACE.split("\n")
+  empty_lines = EMPTY_SPACE.split("\n")
   concat_lines = []
 
   lines1.each_with_index do |line, index|
-    concat_lines << line + lines3[index] + lines2[index]
+    concat_lines << line + empty_lines[index] + lines2[index]
   end
 
   concat_lines.join("\n")
