@@ -276,9 +276,9 @@ loop do
 
     round_winner = play_turn(:player, deck, hands, totals)
     round_winner ||= play_turn(:dealer, deck, hands, totals)
-    display_hands(hands, totals, true)
-
     round_winner ||= calc_round_winner(totals)
+
+    display_hands(hands, totals, true)
     update_score!(round_winner, scores)
     display_score(scores)
 
