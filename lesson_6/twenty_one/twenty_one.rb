@@ -188,9 +188,9 @@ end
 def get_choice(player, hands, totals)
   if player == :player
     display_hands(hands, totals)
-    [hit_or_stay?, 'dealer']
+    hit_or_stay?
   else
-    [dealer_hit_or_stay?(totals[player]), 'player']
+    dealer_hit_or_stay?(totals[player])
   end
 end
 
@@ -201,7 +201,8 @@ end
 
 def play_turn(player, deck, hands, totals)
   loop do
-    choice, round_winner = get_choice(player, hands, totals)
+    choice = get_choice(player, hands, totals)
+    round_winner = player == :player ? 'dealer' : 'player'
 
     if choice == 'h'
       draw_card(deck, hands[player])
