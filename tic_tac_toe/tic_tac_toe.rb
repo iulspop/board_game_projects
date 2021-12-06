@@ -4,7 +4,7 @@ load 'ascii_art.rb'
 WIN_SCORE = 3
 
 RULES_MESSAGE = <<-MSG
-The rules are: 
+The rules are:#{' '}
     Two players, X and O, take turns marking the spaces in a 3×3 grid.
 
     The player who succeeds in placing three of their marks
@@ -74,7 +74,7 @@ end
 
 def any_key_to_continue(message)
   prompt message
-  STDIN.getch
+  $stdin.getch
 end
 
 def welcome
@@ -146,7 +146,7 @@ end
 def display_moves(moves)
   display = ''
   VALID_MOVES.keys.each_with_index do |move, index|
-    display << (moves.include?(move) ? move + ' ' : '  ')
+    display << (moves.include?(move) ? "#{move} " : '  ')
     display << "\n" if (index + 1) % 3 == 0
   end
   puts display

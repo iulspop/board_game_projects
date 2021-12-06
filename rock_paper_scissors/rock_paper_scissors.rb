@@ -35,7 +35,7 @@ VERBS = {
   }
 }
 RULES_MESSAGE = <<-MSG
-The rules are: 
+The rules are:#{' '}
     - Scissors cuts Paper, decapitates Lizard.
     - Paper covers Rock, disproves Spock.
     - Rock crushes Scissors, crushes Lizard.
@@ -52,7 +52,7 @@ def clear_screen
 end
 
 def welcome
-  clear_screen()
+  clear_screen
   puts 'Welcome to the "Rock Paper Scissors Spock Lizard" game!', ''
   sleep 0.15
 
@@ -61,7 +61,7 @@ def welcome
   prompt 'The first to score 5 points wins!', ''
 
   prompt 'Press any key to start game...'
-  STDIN.getch
+  $stdin.getch
 end
 
 def print_shortcuts
@@ -78,7 +78,7 @@ def get_choice
 
     break if VALID_CHOICE.include?(choice)
     break choice = VALID_SHORTCUT[choice] if VALID_SHORTCUT.include?(choice)
-    clear_screen()
+    clear_screen
     puts 'Oops. That\'s not a valid choice.'
   end
   choice
@@ -101,10 +101,10 @@ def update_score(scores, round_winner)
 end
 
 def display_score(scores)
-  clear_screen()
+  clear_screen
   puts '==== SCORE ===='
   puts "Player: #{scores[:player_score]}   " \
-  "Computer: #{scores[:computer_score]}" , ''
+  "Computer: #{scores[:computer_score]}", ''
 end
 
 def round_description(first, second)
@@ -140,7 +140,7 @@ end
 
 def any_key_to_continue
   prompt 'Press any key to start next round...'
-  STDIN.getch
+  $stdin.getch
 end
 
 def play_again?
@@ -149,17 +149,17 @@ def play_again?
     answer = gets.chomp.downcase
     return true  if ['yes', 'y'].include?(answer)
     return false if ['no', 'n'].include?(answer)
-    clear_screen()
+    clear_screen
     puts 'Oops. Please enter Yes or No.'
   end
 end
 
 def goodbye
-  clear_screen()
+  clear_screen
   puts 'Thank you for playing. Good bye!'
 end
 
-welcome()
+welcome
 loop do
   scores = {
     player_score: 0,
@@ -169,7 +169,7 @@ loop do
   loop do
     display_score(scores)
 
-    player_choice = get_choice()
+    player_choice = get_choice
     computer_choice = VALID_CHOICE.sample
 
     round_winner = compute_winner(player_choice, computer_choice)
@@ -188,4 +188,4 @@ loop do
   break unless play_again?
 end
 
-goodbye()
+goodbye

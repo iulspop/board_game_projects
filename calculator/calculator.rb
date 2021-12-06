@@ -33,8 +33,9 @@ def get_operator
     prompt(messages('operator_prompt', lang))
     operator = gets.chomp
 
-    if %w[1 2 3 4].include?(operator) then break
-    else prompt('Must choose 1, 2, 3 or 4') end
+    if %w(1 2 3 4).include?(operator) then break
+    else
+      prompt('Must choose 1, 2, 3 or 4') end
   end
   operator
 end
@@ -46,7 +47,8 @@ def get_number(ordinal_number_word)
     num = gets.chomp
 
     if valid_number?(num) then break
-    else prompt('Oops. Please enter a valid number') end
+    else
+      prompt('Oops. Please enter a valid number') end
   end
   num.to_f
 end
@@ -67,20 +69,20 @@ def calculate_result(num1, num2, operator)
   when '4' then num1 / num2 end
 end
 
-clear_screen()
+clear_screen
 lang = get_lang
 
-clear_screen()
+clear_screen
 prompt(messages('greeting', lang))
 
 loop do
-  operator = get_operator()
+  operator = get_operator
 
-  clear_screen()
+  clear_screen
   num1 = get_number('first')
   num2 = get_number('second')
 
-  clear_screen()
+  clear_screen
   prompt("#{operation_to_message(operator)} the numbers...")
 
   result = calculate_result(num1, num2, operator)
@@ -89,8 +91,8 @@ loop do
   prompt('Would you like to run a calculation again? (Y to calculate again)')
   answer = gets.chomp.upcase
   break unless answer.start_with?('Y')
-  clear_screen()
+  clear_screen
 end
 
-clear_screen()
+clear_screen
 prompt("Thank you for using the calculator. Good bye!")

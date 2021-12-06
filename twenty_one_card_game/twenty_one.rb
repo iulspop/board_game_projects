@@ -41,7 +41,7 @@ end
 
 def any_key_to_continue(message)
   prompt message
-  STDIN.getch
+  $stdin.getch
 end
 
 def welcome
@@ -134,7 +134,8 @@ end
 def to_ascii_hand(hand, hide_card = false)
   ascii_hand = hand.map.with_index do |card, index|
     if index == hand.length - 1 && hide_card then MYSTERY_CARD
-    else to_ascii_card(card) end
+    else
+      to_ascii_card(card) end
   end
   concat_hand(ascii_hand)
 end
@@ -143,13 +144,13 @@ def values_and_total(hand, total, hide_value = false)
   values = ''
   hand.each_with_index do |(value, _), index|
     if index == hand.length - 1 && hide_value
-      return values << '?'.center(11) + ' =   ?'
+      return values << "#{'?'.center(11)} =   ?"
     else
       values << value.to_s.center(11)
       values << '  +  ' if index != hand.length - 1
     end
   end
-  values + ' =   ' + total.to_s
+  "#{values} =   #{total}"
 end
 
 def display_hand(participant, hand, total, reveal)
@@ -230,7 +231,8 @@ def calc_round_winner(totals)
     'player'
   elsif totals[:player] < totals[:dealer]
     'dealer'
-  else 'tie' end
+  else
+    'tie' end
 end
 
 def display_round_winner(round_winner)
